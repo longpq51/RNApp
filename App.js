@@ -7,17 +7,20 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView, Text,
-} from 'react-native';
-import { TailwindProvider } from 'tailwindcss-react-native';
+import {Provider} from 'react-redux';
+import {TailwindProvider} from 'tailwindcss-react-native';
 import Navigator from './src/navigation/Navigator';
+import {createStore} from '@reduxjs/toolkit';
+import rootReducer from './src/store/reducer';
+
+const store = createStore(rootReducer);
 
 const App = () => {
-
   return (
     <TailwindProvider>
-      <Navigator />
+      <Provider store={store}>
+        <Navigator />
+      </Provider>
     </TailwindProvider>
   );
 };
