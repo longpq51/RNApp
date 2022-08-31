@@ -41,7 +41,7 @@ const InputItem = props => {
             placeholder === 'Mật khẩu' && !isShowPassword ? true : false
           }
           placeholder={placeholder}
-          style={tw`bg-${colors.background} rounded-md px-3 mt-3`}
+          style={tw`bg-${colors.background} rounded-md p-4 mt-3`}
         />
         {value.length > 0 && placeholder === 'Mật khẩu' && (
           <TouchableOpacity

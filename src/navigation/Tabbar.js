@@ -37,7 +37,6 @@ const Tabbar = () => {
     tabBarActiveTintColor: colors.rgbPrimary,
     tabBarStyle: {
       paddingTop: 5,
-      height: '7%',
     },
     tabBarOptions: {
       keyboardHidesTabBar: true,

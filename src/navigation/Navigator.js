@@ -1,6 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../screens/Login';
+import Player from '../screens/Player';
 import Register from '../screens/Register';
 import Splash from '../screens/Splash';
 import Tabbar from './Tabbar';
@@ -29,6 +30,12 @@ const Navigator = () => {
         <Stack.Screen
           name="Splash"
           component={Splash}
+          options={screenOptions}
+        />
+
+        <Stack.Screen
+          name="Player"
+          component={Player}
           options={screenOptions}
         />
       </Stack.Navigator>

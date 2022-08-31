@@ -5,6 +5,7 @@ import tw from 'tailwind-react-native-classnames';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import ModalSearch from '../components/ModalSearch';
 import {images} from '../assets/images';
+import Playlist from '../components/playlist/Playlist';
 
 const HomeScreen = props => {
   const [searchValue, setSearchValue] = useState('');
@@ -25,7 +26,8 @@ const HomeScreen = props => {
           <Header logo="" icon={[faSearch]} />
         </View>
       </View>
-      <Text style={tw`text-red-400`}>a</Text>
+
+      <Playlist />
     </SafeAreaView>
   );
 };

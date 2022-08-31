@@ -26,10 +26,10 @@ const AccountHeader = props => {
             style={tw`text-xl font-bold text-${colors.textColorPrimary} mb-1`}>
             Phạm Quang Long
           </Text>
-          <Text
-            style={tw`bg-${colors.textColorPrimary} text-center text-${colors.primary} p-2 rounded-full`}>
-            Thành viên
-          </Text>
+          <View
+            style={tw`bg-${colors.textColorPrimary} flex-row justify-center text-${colors.primary} p-2 rounded-full`}>
+            <Text>Thành viên</Text>
+          </View>
         </View>
       </Pressable>
     </SafeAreaView>
