@@ -1,9 +1,10 @@
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {Modal, SafeAreaView, TouchableOpacity, View} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
+import {setModalSearchVisible} from '../store/actions';
 import {modalSearchVisibleSelector} from '../store/selectors';
 import InputItem from './InputItem';
 
@@ -11,7 +12,10 @@ const ModalSearch = props => {
   const {value, setValue} = props;
 
   const modalSearchVisible = useSelector(modalSearchVisibleSelector);
-  console.log(modalSearchVisible);
+  const dispatchRedux = useDispatch();
+  const dispatchModalSearchVisible = data => {
+    dispatchRedux(setModalSearchVisible(data));
+  };
 
   return (
     <Modal
@@ -24,13 +28,21 @@ const ModalSearch = props => {
       }}>
       <SafeAreaView style={tw`bg-white flex-1`}>
         <View style={tw`flex flex-row items-center mx-2`}>
-          <InputItem
-            placeholder="Nhập từ khoá tìm kiếm..."
-            value={value}
-            setValue={setValue}
-          />
-          <TouchableOpacity style={tw`mt-2 text-${colors.primary}`}>
-            <FontAwesomeIcon icon={faClose} size={30} />
+          <View style={tw`flex-1`}>
+            <InputItem
+              placeholder="Nhập từ khoá tìm kiếm..."
+              value={value}
+              setValue={setValue}
+            />
+          </View>
+          <TouchableOpacity
+            style={tw`mt-2 text-${colors.primary} ml-2`}
+            onPress={() => dispatchModalSearchVisible(false)}>
+            <FontAwesomeIcon
+              icon={faClose}
+              size={30}
+              color={colors.rgbPrimary}
+            />
           </TouchableOpacity>
         </View>
       </SafeAreaView>

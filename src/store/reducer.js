@@ -1,8 +1,17 @@
-import {SET_MODAL_SEARCH_VISIBLE, SET_SHOW_PASSWORD} from './constains';
+import {
+  SET_MODAL_SEARCH_VISIBLE,
+  SET_SHOW_PASSWORD,
+  SET_USER_INFO,
+} from './constains';
 
 const initialState = {
   showPassword: false,
   modalSearchVisible: false,
+  userInfo: {
+    name: 'Longpq',
+    email: 'longpq@comartek.com',
+    dob: '05/01/2001',
+  },
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -18,6 +27,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         modalSearchVisible: action.payload,
+      };
+    case SET_USER_INFO:
+      return {
+        ...state,
+        userInfo: action.payload,
       };
     default:
       return state;
