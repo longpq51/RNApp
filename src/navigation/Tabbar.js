@@ -10,8 +10,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import WishlistScreen from '../screens/WishlistScreen';
-import AccountScreen from '../screens/AccountScreen';
 import {colors} from '../assets/colors';
+import MiniPlayer from '../components/MiniPlayer';
+import {KeyboardAvoidingView, View} from 'react-native';
+import tw from 'tailwind-react-native-classnames';
+import AccountScreen from '../screens/account/AccountScreen';
+import AccountNavigator from '../screens/account/AccountNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,15 +48,19 @@ const Tabbar = () => {
     tabBarLabelStyle: {
       paddingBottom: 5,
     },
+    tabBarHideOnKeyboard: true,
   });
 
   return (
-    <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen name="Trang chủ" component={HomeScreen} />
-      <Tab.Screen name="Yêu thích" component={WishlistScreen} />
-      <Tab.Screen name="Tài khoản" component={AccountScreen} />
-      <Tab.Screen name="Cài đặt" component={SettingsScreen} />
-    </Tab.Navigator>
+    <View style={tw`flex-1`}>
+      <MiniPlayer />
+      <Tab.Navigator screenOptions={screenOptions}>
+        <Tab.Screen name="Trang chủ" component={HomeScreen} />
+        <Tab.Screen name="Yêu thích" component={WishlistScreen} />
+        <Tab.Screen name="Tài khoản" component={AccountNavigator} />
+        <Tab.Screen name="Cài đặt" component={SettingsScreen} />
+      </Tab.Navigator>
+    </View>
   );
 };
 

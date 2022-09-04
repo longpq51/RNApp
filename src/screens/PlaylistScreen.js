@@ -1,18 +1,17 @@
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, ScrollView, Text, View} from 'react-native';
+import tw from 'tailwind-react-native-classnames';
 import PlaylistItem from '../components/playlist/PlaylistItem';
 
 const PlaylistScreen = props => {
   const {data} = props;
 
-  console.log(props);
   return (
-    <View>
-      <FlatList
-        data={data}
-        keyExtractor={item => item[0].id}
-        renderItem={item => <PlaylistItem data={item} />}
-      />
-    </View>
+    <FlatList
+      scrollEnabled
+      data={data}
+      keyExtractor={item => item[0].id}
+      renderItem={item => <PlaylistItem data={item} />}
+    />
   );
 };
 

@@ -1,7 +1,14 @@
 import {faPause, faPlay} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {useEffect} from 'react';
-import {SafeAreaView, Text, Touchable, TouchableOpacity} from 'react-native';
+import {
+  Animated,
+  Image,
+  Modal,
+  SafeAreaView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import TrackPlayer, {
   Capability,
   Event,
@@ -11,44 +18,78 @@ import TrackPlayer, {
   useProgress,
   useTrackPlayerEvents,
 } from 'react-native-track-player';
+import {useSelector} from 'react-redux';
+import tw from 'tailwind-react-native-classnames';
 import {tracks, playlists} from '../../data/index';
-
-const setupPlayer = async () => {
-  await TrackPlayer.setupPlayer();
-  await TrackPlayer.add(tracks);
-};
-
-const togglePlayback = async playbackState => {
-  const currentTrack = await TrackPlayer.getCurrentTrack();
-  if (currentTrack !== null) {
-    if (playbackState === State.Paused) {
-      await TrackPlayer.play();
-    } else {
-      await TrackPlayer.pause();
-    }
-  }
-};
+import {colors} from '../assets/colors';
+import LoopBtn from '../components/buttons/LoopBtn';
+import NextBtn from '../components/buttons/NextBtn';
+import PreviousBtn from '../components/buttons/PreviousBtn';
+import RandomBtn from '../components/buttons/RandomBtn';
+import HeaderPlayer from '../components/HeaderPlayer';
+import SliderUI from '../components/Slider';
+import useRotateAnimated from '../hooks/useRotateAnimated';
+import useSetupPlayer from '../hooks/useSetupPlayer';
+import {
+  audioPlayingSelector,
+  isShowMiniPlayerSelector,
+  isShowModalPlayerSelector,
+} from '../store/selectors';
 
 const Player = props => {
   const playbackState = usePlaybackState();
 
-  const {item} = props;
-  console.log(props);
+  const {setup, togglePlayback} = useSetupPlayer();
+  const spin = useRotateAnimated();
 
-  useEffect(async () => {
-    await setupPlayer();
-    await TrackPlayer.play();
+  const item = useSelector(audioPlayingSelector);
+  const isShowModalPlayer = useSelector(isShowModalPlayerSelector);
+
+  useEffect(() => {
+    const player = async () => {
+      await setup(item);
+      await TrackPlayer.play();
+    };
+    player();
     return () => TrackPlayer.reset();
-  }, []);
+  }, [item]);
 
   return (
-    <SafeAreaView>
-      <TouchableOpacity onPress={() => togglePlayback(playbackState)}>
-        <FontAwesomeIcon
-          icon={playbackState === State.Playing ? faPause : faPlay}
+    <Modal animationType="slide" transparent={true} visible={isShowModalPlayer}>
+      <SafeAreaView style={tw`flex-1 items-center p-5 bg-white`}>
+        <HeaderPlayer item={item} />
+        {/* <Animated.Image
+        source={item.artwork}
+        style={[
+          tw`h-1/3 w-2/3 rounded-full bg-red-400 my-32`,
+          {transform: [{rotate: spin}]},
+        ]}
+      /> */}
+        <Image
+          source={item.artwork}
+          style={[tw`h-1/3 w-2/3 rounded-full bg-red-400 my-32`]}
         />
-      </TouchableOpacity>
-    </SafeAreaView>
+
+        <View style={tw`flex-1 w-full items-center`}>
+          <SliderUI item={item} />
+          <View style={tw`flex-row items-center`}>
+            <LoopBtn />
+            <PreviousBtn onPress={() => TrackPlayer.skipToPrevious()} />
+            <TouchableOpacity
+              style={tw`bg-${colors.primary} p-5 rounded-full mx-3 border border-white border-8 z-10`}
+              onPress={() => togglePlayback(playbackState)}>
+              <FontAwesomeIcon
+                color="white"
+                size={40}
+                icon={playbackState === State.Playing ? faPause : faPlay}
+              />
+            </TouchableOpacity>
+            <NextBtn onPress={() => TrackPlayer.skipToNext()} />
+            <RandomBtn />
+          </View>
+        </View>
+      </SafeAreaView>
+    </Modal>
   );
 };
 

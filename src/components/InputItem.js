@@ -52,7 +52,9 @@ const InputItem = props => {
         )}
       </View>
 
-      {value.length > 0 && placeholder !== undefined ? (
+      {value.length > 0 &&
+      placeholder !== undefined &&
+      placeholder !== 'Tên Playlist' ? (
         <View style={tw`flex flex-row items-center my-2`}>
           <FontAwesomeIcon
             icon={validate ? faCheckCircle : faClose}

@@ -15,7 +15,7 @@ const Playlist = props => {
   const {getPlaylist, playlist} = useGetPlaylist(tracks, playlists);
 
   return (
-    <View>
+    <View style={tw``}>
       <FlatList
         contentContainerStyle={tw`bg-${colors.background} flex-1 justify-evenly p-1`}
         horizontal
