@@ -18,7 +18,7 @@ import TrackPlayer, {
   useProgress,
   useTrackPlayerEvents,
 } from 'react-native-track-player';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {tracks, playlists} from '../../data/index';
 import {colors} from '../assets/colors';
@@ -32,15 +32,16 @@ import useRotateAnimated from '../hooks/useRotateAnimated';
 import useSetupPlayer from '../hooks/useSetupPlayer';
 import {
   audioPlayingSelector,
-  isShowMiniPlayerSelector,
   isShowModalPlayerSelector,
 } from '../store/selectors';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import {setIsShowModalPlayer} from '../store/actions';
 
 const Player = props => {
   const playbackState = usePlaybackState();
 
   const {setup, togglePlayback} = useSetupPlayer();
-  const spin = useRotateAnimated();
+  const {spin, start, stop} = useRotateAnimated();
 
   const item = useSelector(audioPlayingSelector);
   const isShowModalPlayer = useSelector(isShowModalPlayerSelector);
@@ -51,24 +52,26 @@ const Player = props => {
       await TrackPlayer.play();
     };
     player();
+    start();
     return () => TrackPlayer.reset();
   }, [item]);
 
   return (
     <Modal animationType="slide" transparent={true} visible={isShowModalPlayer}>
-      <SafeAreaView style={tw`flex-1 items-center p-5 bg-white`}>
+      <SafeAreaView style={tw`flex-1 items-center bg-white`}>
         <HeaderPlayer item={item} />
-        {/* <Animated.Image
-        source={item.artwork}
-        style={[
-          tw`h-1/3 w-2/3 rounded-full bg-red-400 my-32`,
-          {transform: [{rotate: spin}]},
-        ]}
-      /> */}
-        <Image
+
+        <Animated.Image
+          source={item.artwork}
+          style={[
+            tw`h-1/3 w-2/3 rounded-full bg-red-400 my-32`,
+            {transform: [{rotate: spin}]},
+          ]}
+        />
+        {/* <Image
           source={item.artwork}
           style={[tw`h-1/3 w-2/3 rounded-full bg-red-400 my-32`]}
-        />
+        /> */}
 
         <View style={tw`flex-1 w-full items-center`}>
           <SliderUI item={item} />
@@ -77,7 +80,10 @@ const Player = props => {
             <PreviousBtn onPress={() => TrackPlayer.skipToPrevious()} />
             <TouchableOpacity
               style={tw`bg-${colors.primary} p-5 rounded-full mx-3 border border-white border-8 z-10`}
-              onPress={() => togglePlayback(playbackState)}>
+              onPress={() => {
+                togglePlayback(playbackState);
+                playbackState === State.Playing ? stop() : start();
+              }}>
               <FontAwesomeIcon
                 color="white"
                 size={40}

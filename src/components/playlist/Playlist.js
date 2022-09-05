@@ -8,8 +8,6 @@ import useChoose from '../../hooks/useChoose';
 import useGetPlaylist from '../../hooks/useGetPlaylist';
 import PlaylistScreen from '../../screens/PlaylistScreen';
 
-const Tab = createMaterialTopTabNavigator();
-
 const Playlist = props => {
   const {isChoose, itemIsChoose, choose} = useChoose(playlists);
   const {getPlaylist, playlist} = useGetPlaylist(tracks, playlists);

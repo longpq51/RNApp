@@ -7,18 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../../assets/colors';
-import Player from '../../screens/Player';
 import {setAudioPlaying, setIsShowModalPlayer} from '../../store/actions';
-import {isShowModalPlayerSelector} from '../../store/selectors';
 
 const PlaylistItem = props => {
   const {data} = props;
   const item = data.item[0];
-  // console.log(item.source);
-  const navigation = useNavigation();
   const dispatchRedux = useDispatch();
   const dispatchIsShowModalPlayer = data => {
     dispatchRedux(setIsShowModalPlayer(data));
@@ -31,9 +27,8 @@ const PlaylistItem = props => {
   return (
     <SafeAreaView>
       <TouchableOpacity
-        style={tw`my-1 mx-2 p-2 bg-white rounded-md flex-row items-center`}
+        style={tw`my-1 mx-2 p-2 bg-white rounded-md flex-row items-center shadow-md`}
         onPress={() => {
-          // navigation.navigate('Player', {item: item})
           dispatchIsShowModalPlayer(true);
           dispatchAudioPlaying(item);
         }}>

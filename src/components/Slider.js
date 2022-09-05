@@ -1,5 +1,5 @@
-import Slider from '@react-native-community/slider';
-import {Text, View} from 'react-native';
+// import Slider from '@react-native-community/slider';
+import {Platform, Text, View} from 'react-native';
 import TrackPlayer, {
   Event,
   State,
@@ -10,6 +10,12 @@ import TrackPlayer, {
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
 import useConvertTime from '../hooks/useConvertTime';
+import Slider from 'react-native-custom-slider';
+import {useSelector} from 'react-redux';
+import {
+  isShowMiniPlayerSelector,
+  isShowModalPlayerSelector,
+} from '../store/selectors';
 
 const SliderUI = props => {
   const {item, type} = props;
@@ -17,9 +23,11 @@ const SliderUI = props => {
   const convertTime = useConvertTime();
 
   const progress = useProgress(100);
+  const isShowMiniPlayer = useSelector(isShowMiniPlayerSelector);
+  const isShowModalPlayer = useSelector(isShowModalPlayerSelector);
 
   return (
-    <View style={tw`w-full`}>
+    <View style={tw`w-full self-center`}>
       {type === undefined && (
         <View
           style={tw`bg-${colors.primary} flex-row self-center p-2 px-4 rounded-full`}>
@@ -32,10 +40,15 @@ const SliderUI = props => {
       )}
 
       <Slider
+        thumbStyle={
+          isShowMiniPlayer && !isShowModalPlayer ? tw`h-1 w-1` : tw`h-4 w-4`
+        }
+        // trackStyle={isShowModalPlayer && Platform.OS === 'ios' && tw`mx-5`}
         thumbTintColor={colors.rgbTextColorPrimary}
-        style={tw`w-full`}
+        style={tw`max-w-full ${
+          isShowMiniPlayer && !isShowModalPlayer ? `-mt-6 -mb-3` : 'mx-5'
+        }`}
         value={progress.position}
-        // step={1}
         minimumValue={0}
         maximumValue={progress.duration}
         minimumTrackTintColor={

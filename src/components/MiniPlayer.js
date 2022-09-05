@@ -1,6 +1,6 @@
 import {faForwardStep} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Platform, Text, TouchableOpacity, View} from 'react-native';
 import TrackPlayer from 'react-native-track-player';
 import {useDispatch, useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
@@ -27,7 +27,9 @@ const MiniPlayer = props => {
   return (
     isShowMiniPlayer && (
       <View
-        style={tw`absolute z-10 bottom-12 w-full bg-${colors.primary} rounded-t-lg p-2`}>
+        style={tw`absolute z-10 ${
+          Platform.OS === 'ios' ? 'bottom-20' : 'bottom-12'
+        } w-full bg-${colors.primary} rounded-t-lg p-2`}>
         <SliderUI item={item} type="miniPlayer" />
         <View style={tw`flex-row items-center justify-between`}>
           <TouchableOpacity
@@ -37,7 +39,7 @@ const MiniPlayer = props => {
               source={item.artwork}
               style={tw`h-12 w-12 mr-3 rounded-full`}
             />
-            <View style={tw`w-48`}>
+            <View style={tw`w-44`}>
               <Text
                 numberOfLines={1}
                 style={tw`font-bold text-xl text-${colors.textColorPrimary}`}>

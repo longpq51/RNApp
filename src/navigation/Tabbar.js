@@ -12,10 +12,10 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import WishlistScreen from '../screens/WishlistScreen';
 import {colors} from '../assets/colors';
 import MiniPlayer from '../components/MiniPlayer';
-import {KeyboardAvoidingView, View} from 'react-native';
+import {View} from 'react-native';
 import tw from 'tailwind-react-native-classnames';
-import AccountScreen from '../screens/account/AccountScreen';
 import AccountNavigator from '../screens/account/AccountNavigator';
+import Player from '../screens/Player';
 
 const Tab = createBottomTabNavigator();
 
@@ -60,6 +60,8 @@ const Tabbar = () => {
         <Tab.Screen name="Tài khoản" component={AccountNavigator} />
         <Tab.Screen name="Cài đặt" component={SettingsScreen} />
       </Tab.Navigator>
+
+      <Player />
     </View>
   );
 };

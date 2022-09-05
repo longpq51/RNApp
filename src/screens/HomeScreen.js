@@ -31,7 +31,6 @@ const HomeScreen = props => {
       </View>
 
       <Playlist />
-      <Player />
     </SafeAreaView>
   );
 };

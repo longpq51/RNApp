@@ -33,15 +33,17 @@ const ControlPlaylistScreen = () => {
             style={tw`h-10 opacity-25`}
             onPress={() => setIsShowModal(false)}></TouchableOpacity>
         </SafeAreaView>
-        <SafeAreaView style={tw`flex-1 bg-white rounded-t-lg shadow-2xl p-3`}>
-          <CloseBtn onPress={() => setIsShowModal(false)} />
-          <InputItem
-            placeholder="Tên Playlist"
-            value={playlistName}
-            setValue={setPlaylistName}
-          />
-          <View style={tw`flex-1`}></View>
-          <BtnUI text="Tạo Playlist" />
+        <SafeAreaView style={tw` flex-1 bg-white rounded-t-lg shadow-2xl`}>
+          <View style={tw`p-3 flex-1`}>
+            <CloseBtn onPress={() => setIsShowModal(false)} />
+            <InputItem
+              placeholder="Tên Playlist"
+              value={playlistName}
+              setValue={setPlaylistName}
+            />
+            <View style={tw`flex-1`}></View>
+            <BtnUI text="Tạo Playlist" />
+          </View>
         </SafeAreaView>
       </Modal>
     </SafeAreaView>
