@@ -5,3 +5,5 @@ export const repeatSelector = state => state.repeat;
 export const isShowMiniPlayerSelector = state => state.isShowMiniPlayer;
 export const isShowModalPlayerSelector = state => state.isShowModalPlayer;
 export const audioPlayingSelector = state => state.audioPlaying;
+export const spinValueSelector = state => state.spinValue;
+export const playlistSelector = state => state.playlist;

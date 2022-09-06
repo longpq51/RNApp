@@ -2,15 +2,20 @@ import {useEffect} from 'react';
 import {useState} from 'react';
 import {Animated, Easing} from 'react-native';
 import {State, usePlaybackState, useProgress} from 'react-native-track-player';
+import {useSelector} from 'react-redux';
+import {spinValueSelector} from '../store/selectors';
 
 const useRotateAnimated = () => {
-  var [spinValue, setSpinValue] = useState(new Animated.Value(0));
+  const spinValue = useSelector(spinValueSelector);
+  const playbackState = usePlaybackState();
 
   const start = () => {
+    spinValue.setValue(0);
+
     Animated.loop(
       Animated.timing(spinValue, {
         toValue: 1,
-        duration: 2000,
+        duration: 5000,
         easing: Easing.linear,
         useNativeDriver: true,
       }),
@@ -18,11 +23,10 @@ const useRotateAnimated = () => {
   };
 
   const stop = () => {
-    spinValue.stopAnimation(value => spinValue.setValue(value));
     Animated.loop(
       Animated.timing(spinValue, {
         toValue: 1,
-        duration: 2000,
+        duration: 5000,
         easing: Easing.linear,
         useNativeDriver: true,
       }),

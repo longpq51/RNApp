@@ -1,10 +1,16 @@
 import {
+  ADD_PLAYLIST,
+  ADD_TO_PLAYLIST,
+  DELETE_FROM_PLAYLIST,
+  DELETE_PLAYLIST,
   SET_AUDIO_PLAYING,
   SET_IS_SHOW_MINI_PLAYER,
   SET_IS_SHOW_MODAL_PLAYER,
   SET_MODAL_SEARCH_VISIBLE,
+  SET_PLAYLIST,
   SET_REPEAT,
   SET_SHOW_PASSWORD,
+  SET_SPIN_VALUE,
   SET_USER_INFO,
 } from './constains';
 
@@ -40,5 +46,35 @@ export const setIsShowModalPlayer = data => ({
 
 export const setAudioPlaying = data => ({
   type: SET_AUDIO_PLAYING,
+  payload: data,
+});
+
+export const setSpinValue = data => ({
+  type: SET_SPIN_VALUE,
+  payload: data,
+});
+
+export const setPlayist = data => ({
+  type: SET_PLAYLIST,
+  payload: data,
+});
+
+export const addPlaylist = data => ({
+  type: ADD_PLAYLIST,
+  payload: data,
+});
+
+export const deletePlaylist = data => ({
+  type: DELETE_PLAYLIST,
+  payload: data,
+});
+
+export const addToPlaylist = data => ({
+  type: ADD_TO_PLAYLIST,
+  payload: data,
+});
+
+export const deleteFromPlaylist = data => ({
+  type: DELETE_FROM_PLAYLIST,
   payload: data,
 });

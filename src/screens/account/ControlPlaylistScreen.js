@@ -1,17 +1,27 @@
 import {faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {useState} from 'react';
-import {Modal, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import {useEffect, useState} from 'react';
+import {
+  FlatList,
+  Modal,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../../assets/colors';
 import BtnUI from '../../components/BtnUI';
 import CloseBtn from '../../components/buttons/CloseBtn';
 import HeaderAccountStack from '../../components/HeaderAccountStack';
 import InputItem from '../../components/InputItem';
+import PlaylistCard from '../../components/PlaylistCard';
+import useAddPlaylist from '../../hooks/playlist/useAddPlaylist';
 
 const ControlPlaylistScreen = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [playlistName, setPlaylistName] = useState('');
+  const {playlist, dispatchAddPlaylist} = useAddPlaylist();
 
   return (
     <SafeAreaView>
@@ -42,10 +52,30 @@ const ControlPlaylistScreen = () => {
               setValue={setPlaylistName}
             />
             <View style={tw`flex-1`}></View>
-            <BtnUI text="Tạo Playlist" />
+            <BtnUI
+              text="Tạo Playlist"
+              onPress={() => {
+                setIsShowModal(false);
+                dispatchAddPlaylist({name: playlistName, data: []});
+                console.log(playlist);
+                setPlaylistName('');
+              }}
+            />
           </View>
         </SafeAreaView>
       </Modal>
+
+      {playlist.length === 0 ? (
+        <View style={tw`h-96 items-center justify-center`}>
+          <Text>Không có playlist nào</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={playlist}
+          keyExtractor={key => key.name}
+          renderItem={item => <PlaylistCard item={item} />}
+        />
+      )}
     </SafeAreaView>
   );
 };

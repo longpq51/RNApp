@@ -1,10 +1,17 @@
+import {Animated} from 'react-native';
 import {
+  ADD_PLAYLIST,
+  ADD_TO_PLAYLIST,
+  DELETE_FROM_PLAYLIST,
+  DELETE_PLAYLIST,
   SET_AUDIO_PLAYING,
   SET_IS_SHOW_MINI_PLAYER,
   SET_IS_SHOW_MODAL_PLAYER,
   SET_MODAL_SEARCH_VISIBLE,
+  SET_PLAYLIST,
   SET_REPEAT,
   SET_SHOW_PASSWORD,
+  SET_SPIN_VALUE,
   SET_USER_INFO,
 } from './constains';
 
@@ -20,6 +27,8 @@ const initialState = {
   isShowMiniPlayer: false,
   isShowModalPlayer: false,
   audioPlaying: {},
+  spinValue: new Animated.Value(0),
+  playlist: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -59,6 +68,63 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         audioPlaying: action.payload,
+      };
+    case SET_SPIN_VALUE:
+      return {
+        ...state,
+        spinValue: action.payload,
+      };
+    case SET_PLAYLIST:
+      return {
+        ...state,
+        playlist: action.payload,
+      };
+    case ADD_PLAYLIST:
+      return {
+        ...state,
+        playlist: [...state.playlist, action.payload],
+      };
+    case DELETE_PLAYLIST:
+      return {
+        ...state,
+        playlist: state.playlist.filter(item => item.name === action.payload),
+      };
+    case ADD_TO_PLAYLIST:
+      return {
+        ...state,
+        playlist: [
+          state.playlist[0][0] === undefined
+            ? state.playlist.map(item => {
+                if (item.name === action.payload.namePlaylist)
+                  return {
+                    name: item.name,
+                    data: [...item.data, action.payload.data],
+                  };
+                return item;
+              })
+            : state.playlist[0].map(item => {
+                if (item.name === action.payload.namePlaylist)
+                  return {
+                    name: item.name,
+                    data: [...item.data, action.payload.data],
+                  };
+                return item;
+              }),
+        ],
+      };
+    case DELETE_FROM_PLAYLIST:
+      return {
+        ...state,
+        playlist: [
+          state.playlist.map(item => {
+            if (item.name === action.payload.namePlaylist)
+              return {
+                name: item.name,
+                data: item.data.filter(i => i.name !== action.payload),
+              };
+            return item;
+          }),
+        ],
       };
     default:
       return state;

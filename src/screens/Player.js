@@ -35,7 +35,7 @@ import {
   isShowModalPlayerSelector,
 } from '../store/selectors';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
-import {setIsShowModalPlayer} from '../store/actions';
+import CDAnimation from '../components/CDAnimation';
 
 const Player = props => {
   const playbackState = usePlaybackState();
@@ -52,7 +52,6 @@ const Player = props => {
       await TrackPlayer.play();
     };
     player();
-    start();
     return () => TrackPlayer.reset();
   }, [item]);
 
@@ -61,17 +60,13 @@ const Player = props => {
       <SafeAreaView style={tw`flex-1 items-center bg-white`}>
         <HeaderPlayer item={item} />
 
-        <Animated.Image
-          source={item.artwork}
-          style={[
-            tw`h-1/3 w-2/3 rounded-full bg-red-400 my-32`,
-            {transform: [{rotate: spin}]},
-          ]}
+        <CDAnimation
+          item={item}
+          size="h-1/3 w-2/3"
+          spin={spin}
+          start={start}
+          stop={stop}
         />
-        {/* <Image
-          source={item.artwork}
-          style={[tw`h-1/3 w-2/3 rounded-full bg-red-400 my-32`]}
-        /> */}
 
         <View style={tw`flex-1 w-full items-center`}>
           <SliderUI item={item} />

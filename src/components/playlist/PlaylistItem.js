@@ -14,7 +14,7 @@ import {setAudioPlaying, setIsShowModalPlayer} from '../../store/actions';
 
 const PlaylistItem = props => {
   const {data} = props;
-  const item = data.item[0];
+  const item = data.item[0] !== undefined ? data.item[0] : data.item;
   const dispatchRedux = useDispatch();
   const dispatchIsShowModalPlayer = data => {
     dispatchRedux(setIsShowModalPlayer(data));

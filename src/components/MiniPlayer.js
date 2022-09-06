@@ -1,22 +1,32 @@
 import {faForwardStep} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {Image, Platform, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Animated,
+  Image,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import TrackPlayer from 'react-native-track-player';
 import {useDispatch, useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
+import useRotateAnimated from '../hooks/useRotateAnimated';
 import {setIsShowModalPlayer} from '../store/actions';
 import {
   audioPlayingSelector,
   isShowMiniPlayerSelector,
+  isShowModalPlayerSelector,
 } from '../store/selectors';
-import NextBtn from './buttons/NextBtn';
 import PlayBtn from './buttons/PlayBtn';
 import WishlistBtn from './buttons/WishlistBtn';
+import CDAnimation from './CDAnimation';
 import SliderUI from './Slider';
 
 const MiniPlayer = props => {
   const isShowMiniPlayer = useSelector(isShowMiniPlayerSelector);
+  const {spin, start, stop} = useRotateAnimated();
 
   const item = useSelector(audioPlayingSelector);
   const dispatchRedux = useDispatch();
@@ -33,11 +43,14 @@ const MiniPlayer = props => {
         <SliderUI item={item} type="miniPlayer" />
         <View style={tw`flex-row items-center justify-between`}>
           <TouchableOpacity
-            style={tw`flex-row`}
+            style={tw`flex-row items-center`}
             onPress={() => dispatchIsShowModalPlayer(true)}>
-            <Image
-              source={item.artwork}
-              style={tw`h-12 w-12 mr-3 rounded-full`}
+            <CDAnimation
+              item={item}
+              size="w-10 h-10"
+              spin={spin}
+              start={start}
+              stop={stop}
             />
             <View style={tw`w-44`}>
               <Text

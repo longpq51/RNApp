@@ -1,6 +1,7 @@
 import AccountScreen from './AccountScreen';
 import ControlPlaylistScreen from './ControlPlaylistScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import AudioListScreen from './AudioListScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,11 @@ const AccountNavigator = () => {
       <Stack.Screen
         name="ControlPlaylist"
         component={ControlPlaylistScreen}
+        options={screenOptions}
+      />
+      <Stack.Screen
+        name="AudioList"
+        component={AudioListScreen}
         options={screenOptions}
       />
     </Stack.Navigator>

@@ -6,7 +6,6 @@ import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import ModalSearch from '../components/ModalSearch';
 import {images} from '../assets/images';
 import Playlist from '../components/playlist/Playlist';
-import Player from './Player';
 import {useNavigation} from '@react-navigation/native';
 
 const HomeScreen = props => {
