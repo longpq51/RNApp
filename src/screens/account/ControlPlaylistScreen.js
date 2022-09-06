@@ -22,6 +22,7 @@ const ControlPlaylistScreen = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [playlistName, setPlaylistName] = useState('');
   const {playlist, dispatchAddPlaylist} = useAddPlaylist();
+  console.log(playlist);
 
   return (
     <SafeAreaView>
@@ -57,7 +58,6 @@ const ControlPlaylistScreen = () => {
               onPress={() => {
                 setIsShowModal(false);
                 dispatchAddPlaylist({name: playlistName, data: []});
-                console.log(playlist);
                 setPlaylistName('');
               }}
             />
@@ -65,7 +65,7 @@ const ControlPlaylistScreen = () => {
         </SafeAreaView>
       </Modal>
 
-      {playlist.length === 0 ? (
+      {playlist === undefined || playlist.length === 0 ? (
         <View style={tw`h-96 items-center justify-center`}>
           <Text>Không có playlist nào</Text>
         </View>

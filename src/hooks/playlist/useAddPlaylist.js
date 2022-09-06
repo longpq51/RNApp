@@ -8,7 +8,9 @@ const useAddPlaylist = () => {
     dispatchRedux(addPlaylist(data));
   };
 
-  const playlist = useSelector(playlistSelector);
+  const data = useSelector(playlistSelector);
+  const playlist =
+    data.length !== 0 && data[0][0] === undefined ? data : data[0];
 
   return {
     playlist,

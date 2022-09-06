@@ -80,6 +80,7 @@ const rootReducer = (state = initialState, action) => {
         playlist: action.payload,
       };
     case ADD_PLAYLIST:
+      console.log({playlist: state.playlist, payload: action.payload});
       return {
         ...state,
         playlist: [...state.playlist, action.payload],
@@ -116,11 +117,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         playlist: [
-          state.playlist.map(item => {
+          state.playlist[0].map(item => {
             if (item.name === action.payload.namePlaylist)
               return {
                 name: item.name,
-                data: item.data.filter(i => i.name !== action.payload),
+                data: item.data.filter(i => i.id !== action.payload.data.id),
               };
             return item;
           }),

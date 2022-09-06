@@ -26,6 +26,8 @@ const AudioListScreen = props => {
   const playlist = useSelector(playlistSelector);
   const {dispatchDeleteFromPlaylist} = useDeleteFromPlaylist();
 
+  console.log(playlist);
+
   const audioList =
     playlist[0][0] === undefined
       ? playlist.filter(item => item.name === name)[0].data
@@ -60,8 +62,10 @@ const AudioListScreen = props => {
                   style={tw`w-full h-full items-center justify-between flex-row`}>
                   <TouchableOpacity
                     onPress={() => {
-                      // dispatchDeleteFromPlaylist()
-                      console.log(data);
+                      dispatchDeleteFromPlaylist({
+                        namePlaylist: name,
+                        data: data.item,
+                      });
                     }}
                     style={tw`mr-3 bg-red-400 w-16 my-3 items-center justify-center h-3/4 rounded-full`}>
                     <FontAwesomeIcon icon={faTrash} />

@@ -34,7 +34,6 @@ import {
   audioPlayingSelector,
   isShowModalPlayerSelector,
 } from '../store/selectors';
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import CDAnimation from '../components/CDAnimation';
 
 const Player = props => {
