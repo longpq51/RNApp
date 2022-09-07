@@ -10,7 +10,11 @@ import {
 import {useDispatch} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../../assets/colors';
-import {setAudioPlaying, setIsShowModalPlayer} from '../../store/actions';
+import {
+  setAudioPlaying,
+  setIsShowModalPlayer,
+  setPlayPlaylist,
+} from '../../store/actions';
 
 const PlaylistItem = props => {
   const {data} = props;
@@ -24,6 +28,10 @@ const PlaylistItem = props => {
     dispatchRedux(setAudioPlaying(data));
   };
 
+  const dispatchPlayPlaylist = data => {
+    dispatchRedux(setPlayPlaylist(data));
+  };
+
   return (
     <SafeAreaView>
       <TouchableOpacity
@@ -31,6 +39,7 @@ const PlaylistItem = props => {
         onPress={() => {
           dispatchIsShowModalPlayer(true);
           dispatchAudioPlaying(item);
+          dispatchPlayPlaylist({name: '', type: false});
         }}>
         <Image source={item.artwork} style={tw`h-16 w-16 rounded-md mr-3`} />
         <View style={tw`w-52`}>

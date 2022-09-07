@@ -47,8 +47,8 @@ const useSetupPlayer = () => {
         await TrackPlayer.pause();
       } else if (playbackState === State.Stopped) {
         // await setup(item);
-        // await TrackPlayer.play();
-        TrackPlayer.skipToPrevious();
+        await TrackPlayer.play();
+        // TrackPlayer.skipToPrevious();
       }
     }
   };

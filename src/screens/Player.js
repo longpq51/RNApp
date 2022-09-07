@@ -33,8 +33,12 @@ import useSetupPlayer from '../hooks/useSetupPlayer';
 import {
   audioPlayingSelector,
   isShowModalPlayerSelector,
+  playlistSelector,
+  playPlaylistSelector,
 } from '../store/selectors';
 import CDAnimation from '../components/CDAnimation';
+import usePlayPlaylist from '../hooks/playlist/usePlayPlaylist';
+import useGetAudioList from '../hooks/playlist/useGetAudioList';
 
 const Player = props => {
   const playbackState = usePlaybackState();
@@ -42,17 +46,28 @@ const Player = props => {
   const {setup, togglePlayback} = useSetupPlayer();
   const {spin, start, stop} = useRotateAnimated();
 
-  const item = useSelector(audioPlayingSelector);
+  const playlist = useSelector(playlistSelector);
+  const playPlaylist = useSelector(playPlaylistSelector);
+
+  const {dispatchAudioPlaying} = usePlayPlaylist();
+  const audioList = useGetAudioList(playPlaylist.name);
+
   const isShowModalPlayer = useSelector(isShowModalPlayerSelector);
+
+  const item = useSelector(audioPlayingSelector);
 
   useEffect(() => {
     const player = async () => {
-      await setup(item);
+      await setup(
+        playPlaylist.type
+          ? playlist[0].filter(item => item.name === playPlaylist.name)[0].data
+          : item,
+      );
       await TrackPlayer.play();
     };
     player();
     return () => TrackPlayer.reset();
-  }, [item]);
+  }, [item, playPlaylist]);
 
   return (
     <Modal animationType="slide" transparent={true} visible={isShowModalPlayer}>
@@ -84,7 +99,17 @@ const Player = props => {
                 icon={playbackState === State.Playing ? faPause : faPlay}
               />
             </TouchableOpacity>
-            <NextBtn onPress={() => TrackPlayer.skipToNext()} />
+            <NextBtn
+              onPress={() => {
+                TrackPlayer.skipToNext();
+                TrackPlayer.getCurrentTrack().then(i => {
+                  // dispatchAudioPlaying(audioList[i]);
+                  TrackPlayer.getTrack(i).then(res =>
+                    dispatchAudioPlaying(res),
+                  );
+                });
+              }}
+            />
             <RandomBtn />
           </View>
         </View>

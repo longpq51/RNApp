@@ -9,6 +9,7 @@ import {
   SET_IS_SHOW_MODAL_PLAYER,
   SET_MODAL_SEARCH_VISIBLE,
   SET_PLAYLIST,
+  SET_PLAY_PLAYLIST,
   SET_REPEAT,
   SET_SHOW_PASSWORD,
   SET_SPIN_VALUE,
@@ -29,6 +30,10 @@ const initialState = {
   audioPlaying: {},
   spinValue: new Animated.Value(0),
   playlist: [],
+  playPlaylist: {
+    name: '',
+    type: false,
+  },
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -126,6 +131,11 @@ const rootReducer = (state = initialState, action) => {
             return item;
           }),
         ],
+      };
+    case SET_PLAY_PLAYLIST:
+      return {
+        ...state,
+        playPlaylist: action.payload,
       };
     default:
       return state;

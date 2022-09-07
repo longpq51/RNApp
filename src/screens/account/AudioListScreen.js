@@ -19,19 +19,22 @@ import {SwipeListView} from 'react-native-swipe-list-view';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import useDeleteFromPlaylist from '../../hooks/playlist/useDeleteFromPlaylist';
+import usePlayPlaylist from '../../hooks/playlist/usePlayPlaylist';
+import TrackPlayer from 'react-native-track-player';
+import useGetAudioList from '../../hooks/playlist/useGetAudioList';
 
 const AudioListScreen = props => {
   const route = useRoute();
   const {name} = route.params;
-  const playlist = useSelector(playlistSelector);
   const {dispatchDeleteFromPlaylist} = useDeleteFromPlaylist();
+  const {
+    dispatchPlayPlaylist,
+    dispatchAudioPlaying,
+    dispatchIsShowModalPlayer,
+  } = usePlayPlaylist();
 
-  console.log(playlist);
-
-  const audioList =
-    playlist[0][0] === undefined
-      ? playlist.filter(item => item.name === name)[0].data
-      : playlist[0].filter(item => item.name === name)[0].data;
+  // console.log(playlist);
+  const audioList = useGetAudioList(name);
 
   return (
     <SafeAreaView>
@@ -40,7 +43,17 @@ const AudioListScreen = props => {
         <Text style={tw`text-2xl font-bold mb-5`}>{name}</Text>
         <View style={tw`flex-row items-center justify-evenly w-full`}>
           <ShareBtn />
-          <BtnUI text="Phát nhạc" />
+          <BtnUI
+            text="Phát nhạc"
+            onPress={() => {
+              // TrackPlayer.getCurrentTrack().then(i =>
+              //   dispatchAudioPlaying(audioList[i]),
+              // );
+              dispatchAudioPlaying(audioList[0]);
+              dispatchIsShowModalPlayer(true);
+              dispatchPlayPlaylist({name: name, type: true});
+            }}
+          />
           <AddAudioBtn name={name} />
         </View>
       </View>
@@ -59,7 +72,7 @@ const AudioListScreen = props => {
               renderItem={item => <PlaylistItem data={item} />}
               renderHiddenItem={(data, rowMap) => (
                 <View
-                  style={tw`w-full h-full items-center justify-between flex-row`}>
+                  style={tw`w-full h-full items-center justify-end flex-row`}>
                   <TouchableOpacity
                     onPress={() => {
                       dispatchDeleteFromPlaylist({
@@ -68,11 +81,11 @@ const AudioListScreen = props => {
                       });
                     }}
                     style={tw`mr-3 bg-red-400 w-16 my-3 items-center justify-center h-3/4 rounded-full`}>
-                    <FontAwesomeIcon icon={faTrash} />
+                    <FontAwesomeIcon icon={faTrash} size={20} />
                   </TouchableOpacity>
                 </View>
               )}
-              leftOpenValue={75}
+              rightOpenValue={-75}
             />
           </ScrollView>
         )}

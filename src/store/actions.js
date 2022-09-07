@@ -8,6 +8,7 @@ import {
   SET_IS_SHOW_MODAL_PLAYER,
   SET_MODAL_SEARCH_VISIBLE,
   SET_PLAYLIST,
+  SET_PLAY_PLAYLIST,
   SET_REPEAT,
   SET_SHOW_PASSWORD,
   SET_SPIN_VALUE,
@@ -76,5 +77,10 @@ export const addToPlaylist = data => ({
 
 export const deleteFromPlaylist = data => ({
   type: DELETE_FROM_PLAYLIST,
+  payload: data,
+});
+
+export const setPlayPlaylist = data => ({
+  type: SET_PLAY_PLAYLIST,
   payload: data,
 });
