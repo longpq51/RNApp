@@ -60,7 +60,6 @@ const Tabbar = () => {
         <Tab.Screen name="Tài khoản" component={AccountNavigator} />
         <Tab.Screen name="Cài đặt" component={SettingsScreen} />
       </Tab.Navigator>
-
       <Player />
     </View>
   );

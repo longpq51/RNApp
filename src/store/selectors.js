@@ -8,3 +8,4 @@ export const audioPlayingSelector = state => state.audioPlaying;
 export const spinValueSelector = state => state.spinValue;
 export const playlistSelector = state => state.playlist;
 export const playPlaylistSelector = state => state.playPlaylist;
+export const skipTypeSelector = state => state.skipType;

@@ -11,6 +11,7 @@ import {
   SET_PLAY_PLAYLIST,
   SET_REPEAT,
   SET_SHOW_PASSWORD,
+  SET_SKIP_TYPE,
   SET_SPIN_VALUE,
   SET_USER_INFO,
 } from './constains';
@@ -82,5 +83,10 @@ export const deleteFromPlaylist = data => ({
 
 export const setPlayPlaylist = data => ({
   type: SET_PLAY_PLAYLIST,
+  payload: data,
+});
+
+export const setSkipType = data => ({
+  type: SET_SKIP_TYPE,
   payload: data,
 });

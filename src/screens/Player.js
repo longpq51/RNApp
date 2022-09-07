@@ -1,11 +1,13 @@
-import {faPause, faPlay} from '@fortawesome/free-solid-svg-icons';
+import {faList, faPause, faPlay} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {
   Animated,
+  FlatList,
   Image,
   Modal,
   SafeAreaView,
+  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -35,13 +37,16 @@ import {
   isShowModalPlayerSelector,
   playlistSelector,
   playPlaylistSelector,
+  skipTypeSelector,
 } from '../store/selectors';
 import CDAnimation from '../components/CDAnimation';
 import usePlayPlaylist from '../hooks/playlist/usePlayPlaylist';
 import useGetAudioList from '../hooks/playlist/useGetAudioList';
+import PlaylistModal from '../components/PlaylistModal';
 
 const Player = props => {
   const playbackState = usePlaybackState();
+  const [isShowPlaylistModal, setIsShowPlaylistModal] = useState(false);
 
   const {setup, togglePlayback} = useSetupPlayer();
   const {spin, start, stop} = useRotateAnimated();
@@ -53,8 +58,10 @@ const Player = props => {
   const audioList = useGetAudioList(playPlaylist.name);
 
   const isShowModalPlayer = useSelector(isShowModalPlayerSelector);
+  const skipType = useSelector(skipTypeSelector);
 
   const item = useSelector(audioPlayingSelector);
+  // const {item} = props;
 
   useEffect(() => {
     const player = async () => {
@@ -63,11 +70,17 @@ const Player = props => {
           ? playlist[0].filter(item => item.name === playPlaylist.name)[0].data
           : item,
       );
+      // await (skipType === ''
+      //   ? TrackPlayer.play()
+      //   : skipType === 'Next'
+      //   ? TrackPlayer.getCurrentTrack().then(i => TrackPlayer.skip(i + 1))
+      //   : TrackPlayer.getCurrentTrack().then(i => TrackPlayer.skip(i - 1)));
       await TrackPlayer.play();
     };
     player();
+    console.log('a');
     return () => TrackPlayer.reset();
-  }, [item, playPlaylist]);
+  }, [item]);
 
   return (
     <Modal animationType="slide" transparent={true} visible={isShowModalPlayer}>
@@ -86,7 +99,12 @@ const Player = props => {
           <SliderUI item={item} />
           <View style={tw`flex-row items-center`}>
             <LoopBtn />
-            <PreviousBtn onPress={() => TrackPlayer.skipToPrevious()} />
+            <PreviousBtn
+              onPress={async () => {
+                await TrackPlayer.skipToPrevious();
+                await TrackPlayer.getQueue().then(i => console.log(i));
+              }}
+            />
             <TouchableOpacity
               style={tw`bg-${colors.primary} p-5 rounded-full mx-3 border border-white border-8 z-10`}
               onPress={() => {
@@ -102,17 +120,31 @@ const Player = props => {
             <NextBtn
               onPress={() => {
                 TrackPlayer.skipToNext();
-                TrackPlayer.getCurrentTrack().then(i => {
-                  // dispatchAudioPlaying(audioList[i]);
-                  TrackPlayer.getTrack(i).then(res =>
-                    dispatchAudioPlaying(res),
-                  );
-                });
               }}
             />
             <RandomBtn />
           </View>
         </View>
+
+        {playPlaylist.type && (
+          <View style={tw`w-full`}>
+            <TouchableOpacity
+              onPress={() => setIsShowPlaylistModal(true)}
+              style={tw`p-3 flex-row items-center self-end`}>
+              <FontAwesomeIcon
+                icon={faList}
+                style={tw`text-${colors.primary}`}
+              />
+              <Text style={tw`font-bold ml-3 text-${colors.primary}`}>
+                Danh sách bài hát
+              </Text>
+            </TouchableOpacity>
+            <PlaylistModal
+              isShowPlaylistModal={isShowPlaylistModal}
+              setIsShowPlaylistModal={setIsShowPlaylistModal}
+            />
+          </View>
+        )}
       </SafeAreaView>
     </Modal>
   );

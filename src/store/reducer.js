@@ -12,6 +12,7 @@ import {
   SET_PLAY_PLAYLIST,
   SET_REPEAT,
   SET_SHOW_PASSWORD,
+  SET_SKIP_TYPE,
   SET_SPIN_VALUE,
   SET_USER_INFO,
 } from './constains';
@@ -34,6 +35,7 @@ const initialState = {
     name: '',
     type: false,
   },
+  skipType: '',
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -136,6 +138,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         playPlaylist: action.payload,
+      };
+    case SET_SKIP_TYPE:
+      return {
+        ...state,
+        skipType: action.payload,
       };
     default:
       return state;
