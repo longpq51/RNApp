@@ -3,6 +3,7 @@ import {
   ADD_TO_PLAYLIST,
   DELETE_FROM_PLAYLIST,
   DELETE_PLAYLIST,
+  SET_AUDIO,
   SET_AUDIO_PLAYING,
   SET_IS_SHOW_MINI_PLAYER,
   SET_IS_SHOW_MODAL_PLAYER,
@@ -11,8 +12,8 @@ import {
   SET_PLAY_PLAYLIST,
   SET_REPEAT,
   SET_SHOW_PASSWORD,
-  SET_SKIP_TYPE,
   SET_SPIN_VALUE,
+  SET_UPDATE,
   SET_USER_INFO,
 } from './constains';
 
@@ -86,7 +87,7 @@ export const setPlayPlaylist = data => ({
   payload: data,
 });
 
-export const setSkipType = data => ({
-  type: SET_SKIP_TYPE,
+export const setAudio = data => ({
+  type: SET_AUDIO,
   payload: data,
 });

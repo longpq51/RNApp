@@ -10,6 +10,7 @@ import {
 import {useDispatch} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../../assets/colors';
+import useSetupPlayer from '../../hooks/useSetupPlayer';
 import {
   setAudioPlaying,
   setIsShowModalPlayer,
@@ -19,6 +20,8 @@ import {
 const PlaylistItem = props => {
   const {data} = props;
   const item = data.item[0] !== undefined ? data.item[0] : data.item;
+  const {setup, togglePlayback} = useSetupPlayer();
+
   const dispatchRedux = useDispatch();
   const dispatchIsShowModalPlayer = data => {
     dispatchRedux(setIsShowModalPlayer(data));

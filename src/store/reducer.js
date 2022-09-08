@@ -4,6 +4,7 @@ import {
   ADD_TO_PLAYLIST,
   DELETE_FROM_PLAYLIST,
   DELETE_PLAYLIST,
+  SET_AUDIO,
   SET_AUDIO_PLAYING,
   SET_IS_SHOW_MINI_PLAYER,
   SET_IS_SHOW_MODAL_PLAYER,
@@ -12,8 +13,8 @@ import {
   SET_PLAY_PLAYLIST,
   SET_REPEAT,
   SET_SHOW_PASSWORD,
-  SET_SKIP_TYPE,
   SET_SPIN_VALUE,
+  SET_UPDATE,
   SET_USER_INFO,
 } from './constains';
 
@@ -28,14 +29,14 @@ const initialState = {
   repeat: false,
   isShowMiniPlayer: false,
   isShowModalPlayer: false,
-  audioPlaying: {},
+  audioPlaying: [],
   spinValue: new Animated.Value(0),
   playlist: [],
   playPlaylist: {
     name: '',
     type: false,
   },
-  skipType: '',
+  audio: {},
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -139,10 +140,10 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         playPlaylist: action.payload,
       };
-    case SET_SKIP_TYPE:
+    case SET_AUDIO:
       return {
         ...state,
-        skipType: action.payload,
+        audio: action.payload,
       };
     default:
       return state;

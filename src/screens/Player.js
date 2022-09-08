@@ -22,7 +22,6 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 import {useDispatch, useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
-import {tracks, playlists} from '../../data/index';
 import {colors} from '../assets/colors';
 import LoopBtn from '../components/buttons/LoopBtn';
 import NextBtn from '../components/buttons/NextBtn';
@@ -34,15 +33,16 @@ import useRotateAnimated from '../hooks/useRotateAnimated';
 import useSetupPlayer from '../hooks/useSetupPlayer';
 import {
   audioPlayingSelector,
+  audioSelector,
   isShowModalPlayerSelector,
-  playlistSelector,
   playPlaylistSelector,
-  skipTypeSelector,
+  updateSelector,
 } from '../store/selectors';
 import CDAnimation from '../components/CDAnimation';
 import usePlayPlaylist from '../hooks/playlist/usePlayPlaylist';
 import useGetAudioList from '../hooks/playlist/useGetAudioList';
 import PlaylistModal from '../components/PlaylistModal';
+import useAudio from '../hooks/useAudio';
 
 const Player = props => {
   const playbackState = usePlaybackState();
@@ -51,36 +51,33 @@ const Player = props => {
   const {setup, togglePlayback} = useSetupPlayer();
   const {spin, start, stop} = useRotateAnimated();
 
-  const playlist = useSelector(playlistSelector);
   const playPlaylist = useSelector(playPlaylistSelector);
 
   const {dispatchAudioPlaying} = usePlayPlaylist();
   const audioList = useGetAudioList(playPlaylist.name);
 
   const isShowModalPlayer = useSelector(isShowModalPlayerSelector);
-  const skipType = useSelector(skipTypeSelector);
 
-  const item = useSelector(audioPlayingSelector);
-  // const {item} = props;
+  const audioPlaying = useSelector(audioPlayingSelector);
+  const {audio, dispatchAudio} = useAudio();
+
+  const item = playPlaylist.type ? audio : audioPlaying;
 
   useEffect(() => {
     const player = async () => {
-      await setup(
-        playPlaylist.type
-          ? playlist[0].filter(item => item.name === playPlaylist.name)[0].data
-          : item,
-      );
-      // await (skipType === ''
-      //   ? TrackPlayer.play()
-      //   : skipType === 'Next'
-      //   ? TrackPlayer.getCurrentTrack().then(i => TrackPlayer.skip(i + 1))
-      //   : TrackPlayer.getCurrentTrack().then(i => TrackPlayer.skip(i - 1)));
+      await setup(playPlaylist.type ? audioList : item);
       await TrackPlayer.play();
+      playPlaylist.type &&
+        (await TrackPlayer.getCurrentTrack().then(res =>
+          TrackPlayer.getTrack(res).then(i => dispatchAudio(i)),
+        ));
     };
     player();
-    console.log('a');
-    return () => TrackPlayer.reset();
-  }, [item]);
+    return () => {
+      TrackPlayer.reset();
+      setIsShowPlaylistModal(false);
+    };
+  }, [audioPlaying]);
 
   return (
     <Modal animationType="slide" transparent={true} visible={isShowModalPlayer}>
@@ -100,9 +97,11 @@ const Player = props => {
           <View style={tw`flex-row items-center`}>
             <LoopBtn />
             <PreviousBtn
-              onPress={async () => {
-                await TrackPlayer.skipToPrevious();
-                await TrackPlayer.getQueue().then(i => console.log(i));
+              onPress={() => {
+                TrackPlayer.skipToPrevious();
+                TrackPlayer.getCurrentTrack().then(res =>
+                  TrackPlayer.getTrack(res).then(i => dispatchAudio(i)),
+                );
               }}
             />
             <TouchableOpacity
@@ -120,6 +119,9 @@ const Player = props => {
             <NextBtn
               onPress={() => {
                 TrackPlayer.skipToNext();
+                TrackPlayer.getCurrentTrack().then(res =>
+                  TrackPlayer.getTrack(res).then(i => dispatchAudio(i)),
+                );
               }}
             />
             <RandomBtn />

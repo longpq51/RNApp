@@ -12,12 +12,14 @@ import TrackPlayer from 'react-native-track-player';
 import {useDispatch, useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
+import useAudio from '../hooks/useAudio';
 import useRotateAnimated from '../hooks/useRotateAnimated';
 import {setIsShowModalPlayer} from '../store/actions';
 import {
   audioPlayingSelector,
   isShowMiniPlayerSelector,
   isShowModalPlayerSelector,
+  playPlaylistSelector,
 } from '../store/selectors';
 import PlayBtn from './buttons/PlayBtn';
 import WishlistBtn from './buttons/WishlistBtn';
@@ -26,9 +28,12 @@ import SliderUI from './Slider';
 
 const MiniPlayer = props => {
   const isShowMiniPlayer = useSelector(isShowMiniPlayerSelector);
+  const playPlaylist = useSelector(playPlaylistSelector);
   const {spin, start, stop} = useRotateAnimated();
 
-  const item = useSelector(audioPlayingSelector);
+  const {audio, dispatchAudio} = useAudio();
+  const audioPlaying = useSelector(audioPlayingSelector);
+  const item = playPlaylist.type ? audio : audioPlaying;
   const dispatchRedux = useDispatch();
   const dispatchIsShowModalPlayer = data => {
     dispatchRedux(setIsShowModalPlayer(data));

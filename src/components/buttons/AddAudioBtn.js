@@ -1,4 +1,4 @@
-import {faAdd} from '@fortawesome/free-solid-svg-icons';
+import {faAdd, faCheck} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
   FlatList,
@@ -16,11 +16,15 @@ import {useState} from 'react';
 import PlaylistItem from '../playlist/PlaylistItem';
 import CloseBtn from './CloseBtn';
 import {colors} from '../../assets/colors';
+import useIsChoose from '../../hooks/playlist/useIsChoose';
 
 const AddAudioBtn = props => {
   const {name, item} = props;
   const [isShowModal, setIsShowModal] = useState(false);
   const {audioList, dispatchAddToPlaylist} = useAddToPlaylist(name);
+  const check = useIsChoose();
+
+  // console.log(check());
 
   return (
     <View>
@@ -47,11 +51,11 @@ const AddAudioBtn = props => {
                       namePlaylist: name,
                       data: item.item,
                     });
-                    console.log(audioList);
+                    console.log(check(item.item));
                   }}
                   style={tw`border border-2 border-${colors.primary} p-3 mr-3 rounded-full`}>
                   <FontAwesomeIcon
-                    icon={faAdd}
+                    icon={check(item.item) ? faCheck : faAdd}
                     style={tw`text-${colors.primary}`}
                   />
                 </TouchableOpacity>

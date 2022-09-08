@@ -12,4 +12,4 @@ export const DELETE_PLAYLIST = 'delete_playlist';
 export const ADD_TO_PLAYLIST = 'add_to_playlist';
 export const DELETE_FROM_PLAYLIST = 'delete_from_playlist';
 export const SET_PLAY_PLAYLIST = 'set_play_playlist';
-export const SET_SKIP_TYPE = 'set_skip_type';
+export const SET_AUDIO = 'set_audio';

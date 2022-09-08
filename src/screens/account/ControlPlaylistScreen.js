@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../../assets/colors';
 import BtnUI from '../../components/BtnUI';
@@ -17,12 +18,14 @@ import HeaderAccountStack from '../../components/HeaderAccountStack';
 import InputItem from '../../components/InputItem';
 import PlaylistCard from '../../components/PlaylistCard';
 import useAddPlaylist from '../../hooks/playlist/useAddPlaylist';
+import {playlistSelector} from '../../store/selectors';
 
 const ControlPlaylistScreen = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [playlistName, setPlaylistName] = useState('');
-  const {playlist, dispatchAddPlaylist} = useAddPlaylist();
-  console.log(playlist);
+  const {playlist, dispatchAddPlaylist, dispatchPlayPlaylist} =
+    useAddPlaylist();
+  const list = useSelector(playlistSelector);
 
   return (
     <SafeAreaView>
@@ -58,6 +61,7 @@ const ControlPlaylistScreen = () => {
               onPress={() => {
                 setIsShowModal(false);
                 dispatchAddPlaylist({name: playlistName, data: []});
+                dispatchPlayPlaylist({name: playlistName, type: false});
                 setPlaylistName('');
               }}
             />
