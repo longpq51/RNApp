@@ -76,7 +76,12 @@ const MiniPlayer = props => {
             <PlayBtn size={20} />
             <TouchableOpacity
               style={tw`p-2`}
-              onPress={() => TrackPlayer.skipToNext()}>
+              onPress={() => {
+                TrackPlayer.skipToNext();
+                TrackPlayer.getCurrentTrack().then(res =>
+                  TrackPlayer.getTrack(res).then(i => dispatchAudio(i)),
+                );
+              }}>
               <FontAwesomeIcon
                 icon={faForwardStep}
                 size={20}

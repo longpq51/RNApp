@@ -1,5 +1,4 @@
 import {useSelector} from 'react-redux';
-import {tracks} from '../../../data';
 import {playPlaylistSelector} from '../../store/selectors';
 import useGetAudioList from './useGetAudioList';
 

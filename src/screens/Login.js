@@ -5,12 +5,18 @@ import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
 import BtnUI from '../components/BtnUI';
 import InputItem from '../components/InputItem';
+import useValidateEmail from '../hooks/validate/useValidateEmail';
+import useValidatePassword from '../hooks/validate/useValidatePassword';
+import Toast from 'react-native-toast-message';
 
 const Login = props => {
   const navigation = useNavigation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const validateEmail = useValidateEmail(email);
+  const validatePassword = useValidatePassword(password);
 
   return (
     <SafeAreaView>
@@ -33,8 +39,25 @@ const Login = props => {
           />
         </View>
 
+        <TouchableOpacity
+          style={tw`self-end mr-5 mb-5`}
+          onPress={() => navigation.navigate('ForgetPassword')}>
+          <Text style={tw`text-${colors.primary}`}>Quên mật khẩu?</Text>
+        </TouchableOpacity>
+
         <View style={tw`mt-10 m-2`}>
-          <BtnUI text="Đăng nhập" />
+          <BtnUI
+            text="Đăng nhập"
+            onPress={() => {
+              validateEmail && validatePassword
+                ? navigation.navigate('Tabbar')
+                : Toast.show({
+                    type: 'error',
+                    text1: 'Mật khẩu hoặc email không hợp lệ',
+                    text2: 'Kiểm tra lại thông tin đăng nhập nhé! 👋',
+                  });
+            }}
+          />
           <View style={tw`items-center flex flex-row justify-center mt-3`}>
             <Text>Bạn chưa có tài khoản? </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Register')}>

@@ -1,6 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ControlPlaylistScreen from '../screens/account/ControlPlaylistScreen';
+import ForgetPassword from '../screens/ForgetPassword';
 import Login from '../screens/Login';
 import Player from '../screens/Player';
 import Register from '../screens/Register';
@@ -16,7 +17,7 @@ const Navigator = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Tabbar">
+      <Stack.Navigator initialRouteName="Splash">
         <Stack.Screen
           name="Tabbar"
           component={Tabbar}
@@ -33,10 +34,14 @@ const Navigator = () => {
           component={Splash}
           options={screenOptions}
         />
-
         <Stack.Screen
           name="Player"
           component={Player}
+          options={screenOptions}
+        />
+        <Stack.Screen
+          name="ForgetPassword"
+          component={ForgetPassword}
           options={screenOptions}
         />
       </Stack.Navigator>

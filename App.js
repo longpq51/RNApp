@@ -12,6 +12,7 @@ import {TailwindProvider} from 'tailwindcss-react-native';
 import Navigator from './src/navigation/Navigator';
 import {createStore} from '@reduxjs/toolkit';
 import rootReducer from './src/store/reducer';
+import Toast from 'react-native-toast-message';
 
 const store = createStore(rootReducer);
 
@@ -20,6 +21,7 @@ const App = () => {
     <TailwindProvider>
       <Provider store={store}>
         <Navigator />
+        <Toast />
       </Provider>
     </TailwindProvider>
   );

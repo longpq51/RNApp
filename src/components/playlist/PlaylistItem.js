@@ -20,7 +20,7 @@ import {
 const PlaylistItem = props => {
   const {data} = props;
   const item = data.item[0] !== undefined ? data.item[0] : data.item;
-  const {setup, togglePlayback} = useSetupPlayer();
+  console.log(data);
 
   const dispatchRedux = useDispatch();
   const dispatchIsShowModalPlayer = data => {
