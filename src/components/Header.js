@@ -26,7 +26,7 @@ const Header = props => {
           <View style={tw`flex flex-row justify-center`}>
             <Image source={require('../assets/logo.png')} style={tw`w-8 h-8`} />
             <Text style={tw`text-${colors.textColorPrimary} text-xl`}>
-              yarn
+              KAMA SUTRA
             </Text>
           </View>
         ) : (

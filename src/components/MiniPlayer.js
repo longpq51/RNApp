@@ -72,7 +72,7 @@ const MiniPlayer = props => {
           </TouchableOpacity>
 
           <View style={tw`flex-row items-center`}>
-            <WishlistBtn />
+            <WishlistBtn item={item} />
             <PlayBtn size={20} />
             <TouchableOpacity
               style={tw`p-2`}

@@ -2,16 +2,9 @@ import {useSelector} from 'react-redux';
 import {playPlaylistSelector} from '../../store/selectors';
 import useGetAudioList from './useGetAudioList';
 
-const useIsChoose = () => {
-  const playPlaylist = useSelector(playPlaylistSelector);
-  const audioList = useGetAudioList(playPlaylist.name);
-  console.log(audioList);
-
+const useIsChoose = audioList => {
   const check = item => {
-    audioList.map(i => {
-      if (item.id == i.id) return true;
-      else return false;
-    });
+    return audioList.find(i => item.id === i.id);
   };
 
   return check;

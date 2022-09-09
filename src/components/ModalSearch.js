@@ -9,19 +9,21 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {ScrollView} from 'react-native-virtualized-view';
 import {useDispatch, useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
 import {setModalSearchVisible} from '../store/actions';
 import {modalSearchVisibleSelector} from '../store/selectors';
+import ArtistItem from './ArtistItem';
 import InputItem from './InputItem';
 import PlaylistItem from './playlist/PlaylistItem';
-import WishlistCard from './WishlistCard';
 
 const ModalSearch = props => {
   const {value, setValue} = props;
 
   const [searchList, setSearchList] = useState([]);
+  const [searchArtistList, setSearchArtistList] = useState([]);
 
   const modalSearchVisible = useSelector(modalSearchVisibleSelector);
   const dispatchRedux = useDispatch();
@@ -42,6 +44,7 @@ const ModalSearch = props => {
         <View style={tw`flex flex-row items-center mx-2`}>
           <View style={tw`flex-1`}>
             <InputItem
+              setSearchArtistList={setSearchArtistList}
               setSearchList={setSearchList}
               placeholder="Nhập từ khoá tìm kiếm..."
               value={value}
@@ -63,14 +66,31 @@ const ModalSearch = props => {
           Danh sách tìm kiếm
         </Text>
 
+        {searchArtistList.length > 0 && value.length > 0 && (
+          <View>
+            <FlatList
+              contentContainerStyle={tw`h-20 w-full items-center`}
+              horizontal
+              data={searchArtistList}
+              keyExtractor={key => key.id}
+              renderItem={item => <ArtistItem item={item.item} />}
+            />
+          </View>
+        )}
+
         {searchList.length > 0 && value.length > 0 ? (
-          <View style={tw`w-full`}>
+          <ScrollView style={tw`w-full h-2/3`}>
             <FlatList
               data={searchList}
               keyExtractor={key => key.id}
-              renderItem={item => <PlaylistItem data={item} />}
+              renderItem={item => (
+                <PlaylistItem
+                  data={item}
+                  modalVisible={dispatchModalSearchVisible}
+                />
+              )}
             />
-          </View>
+          </ScrollView>
         ) : (
           <View style={tw`flex-1 items-center justify-center`}>
             <Text>Không có bài hát nào</Text>

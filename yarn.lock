@@ -845,6 +845,15 @@
     humps "^2.0.1"
     prop-types "^15.7.2"
 
+"@gluons/react-native-lazyload-flatlist@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@gluons/react-native-lazyload-flatlist/-/react-native-lazyload-flatlist-0.0.3.tgz#ac93ba1d21d3bc768c8a68e0893e3de5081adcbc"
+  integrity sha512-wQkbVHdZz3aMeO0pVq+/zNwJS2+HPgFwTdnwMbe5hFDBMvfhg2Rn+vuOpWnty7OZBOnSpH4KG+K9EBOMQ07CEQ==
+  dependencies:
+    lodash-es "^4.17.21"
+  optionalDependencies:
+    type-fest "^2.0.0"
+
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
   resolved "https://registry.npmjs.org/@hapi/hoek/-/hoek-9.3.0.tgz"
@@ -4818,6 +4827,11 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
+lodash-es@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
+
 lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
@@ -6060,6 +6074,13 @@ react-native-gradle-plugin@^0.0.6:
   resolved "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.6.tgz"
   integrity sha512-eIlgtsmDp1jLC24dRn43hB3kEcZVqx6DUQbR0N1ABXGnMEafm9I3V3dUUeD1vh+Dy5WqijSoEwLNUPLgu5zDMg==
 
+react-native-lazyload@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-lazyload/-/react-native-lazyload-1.1.0.tgz#463d76ecbdec5cbe79060bce65b673e4b164b364"
+  integrity sha512-HiWrfYvS/5ZG2wLbF9evybvtX+4d51kwYwcBmIDXZKflFDpmdK8H78m5H70HXZ+/UILKFY9/DlePJeITbylS/g==
+  dependencies:
+    react-native-scrollable-mixin "^1.0.1"
+
 react-native-pager-view@^5.4.25:
   version "5.4.25"
   resolved "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-5.4.25.tgz"
@@ -6077,6 +6098,11 @@ react-native-screens@^3.17.0:
   dependencies:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
+
+react-native-scrollable-mixin@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-scrollable-mixin/-/react-native-scrollable-mixin-1.0.1.tgz#34a32167b64248594154fd0d6a8b03f22740548e"
+  integrity sha512-haw7VtcK0Vg1p7CTE8vzhltICPhfuzLUNR1m9Rh55VYEGkD3o765Y5YTu88iA32uV/hMhJUopP5Tex/SvNidoA==
 
 react-native-svg@^13.0.0:
   version "13.0.0"
@@ -7221,6 +7247,11 @@ type-fest@^0.7.1:
   version "0.7.1"
   resolved "https://registry.npmjs.org/type-fest/-/type-fest-0.7.1.tgz"
   integrity sha512-Ne2YiiGN8bmrmJJEuTWTLJR32nh/JdL1+PSicowtNb0WFpn59GK8/lfD61bVtzguz7b3PBt74nxpv/Pw5po5Rg==
+
+type-fest@^2.0.0:
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-2.19.0.tgz#88068015bb33036a598b952e55e9311a60fd3a9b"
+  integrity sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==
 
 uglify-es@^3.1.9:
   version "3.3.9"

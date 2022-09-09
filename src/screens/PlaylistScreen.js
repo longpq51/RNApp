@@ -11,7 +11,7 @@ const PlaylistScreen = props => {
   return (
     <ScrollView
       nestedScrollEnabled={true}
-      style={{height: isShowMiniPlayer ? 530 : 600}}>
+      style={{height: isShowMiniPlayer ? 400 : 510}}>
       <FlatList
         scrollEnabled
         data={data}

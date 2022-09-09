@@ -54,6 +54,7 @@ const Player = props => {
   const playPlaylist = useSelector(playPlaylistSelector);
 
   const {dispatchAudioPlaying} = usePlayPlaylist();
+
   const audioList = useGetAudioList(playPlaylist.name);
 
   const isShowModalPlayer = useSelector(isShowModalPlayerSelector);

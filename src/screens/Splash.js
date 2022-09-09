@@ -52,7 +52,7 @@ const Splash = props => {
           fontWeight: 'bold',
           transform: [{translateY: tittleMarginTop}],
         }}>
-        YARN
+        KAMA SUTRA
       </Animated.Text>
     </View>
   );

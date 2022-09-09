@@ -2,7 +2,7 @@ import {Image, Modal, SafeAreaView, Text, View} from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
 import CloseBtn from './buttons/CloseBtn';
-import WishlistCard from './WishlistCard';
+import PlaylistItem from './playlist/PlaylistItem';
 
 const ArtistModal = props => {
   const {item, isShowModal, setIsShowModal} = props;
@@ -13,12 +13,13 @@ const ArtistModal = props => {
         <View style={tw`p-3`}>
           <CloseBtn onPress={() => setIsShowModal(false)} />
 
-          <View style={tw`justify-center items-center`}>
+          <View
+            style={tw`justify-center items-center bg-${colors.background} rounded-lg mb-5 p-10`}>
             <Image
               source={item.artwork}
-              style={tw`h-1/2 w-1/2 rounded-full mb-5`}
+              style={tw`h-36 w-1/2 rounded-full mb-5`}
             />
-            <Text numberOfLines={1} style={tw`text-center`}>
+            <Text numberOfLines={1} style={tw`text-center font-bold text-xl`}>
               {item.artist}
             </Text>
           </View>
@@ -26,7 +27,11 @@ const ArtistModal = props => {
           <Text style={tw`font-bold text-${colors.primary} ml-3 text-lg`}>
             Danh sách bài hát
           </Text>
-          <WishlistCard item={item} />
+          <PlaylistItem
+            data={item}
+            type="Artist"
+            modalVisible={setIsShowModal}
+          />
         </View>
       </SafeAreaView>
     </Modal>

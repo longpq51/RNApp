@@ -43,7 +43,7 @@ const HeaderPlayer = props => {
             <Text numberOfLines={1}>{item.artist}</Text>
           </View>
         </View>
-        <WishlistBtn />
+        <WishlistBtn item={item} />
       </View>
     </SafeAreaView>
   );

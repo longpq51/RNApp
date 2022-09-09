@@ -13,3 +13,5 @@ export const ADD_TO_PLAYLIST = 'add_to_playlist';
 export const DELETE_FROM_PLAYLIST = 'delete_from_playlist';
 export const SET_PLAY_PLAYLIST = 'set_play_playlist';
 export const SET_AUDIO = 'set_audio';
+export const ADD_TO_WISHLIST = 'add_to_wishlist';
+export const DELETE_FROM_WISHLIST = 'dellete_from_wishlist';

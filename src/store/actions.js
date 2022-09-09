@@ -1,7 +1,9 @@
 import {
   ADD_PLAYLIST,
   ADD_TO_PLAYLIST,
+  ADD_TO_WISHLIST,
   DELETE_FROM_PLAYLIST,
+  DELETE_FROM_WISHLIST,
   DELETE_PLAYLIST,
   SET_AUDIO,
   SET_AUDIO_PLAYING,
@@ -89,5 +91,15 @@ export const setPlayPlaylist = data => ({
 
 export const setAudio = data => ({
   type: SET_AUDIO,
+  payload: data,
+});
+
+export const addToWishlist = data => ({
+  type: ADD_TO_WISHLIST,
+  payload: data,
+});
+
+export const deleteFromWishlist = data => ({
+  type: DELETE_FROM_WISHLIST,
   payload: data,
 });

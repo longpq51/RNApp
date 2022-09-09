@@ -2,7 +2,9 @@ import {Animated} from 'react-native';
 import {
   ADD_PLAYLIST,
   ADD_TO_PLAYLIST,
+  ADD_TO_WISHLIST,
   DELETE_FROM_PLAYLIST,
+  DELETE_FROM_WISHLIST,
   DELETE_PLAYLIST,
   SET_AUDIO,
   SET_AUDIO_PLAYING,
@@ -37,6 +39,7 @@ const initialState = {
     type: false,
   },
   audio: {},
+  wishlist: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -88,15 +91,20 @@ const rootReducer = (state = initialState, action) => {
         playlist: action.payload,
       };
     case ADD_PLAYLIST:
-      console.log({playlist: state.playlist, payload: action.payload});
       return {
         ...state,
-        playlist: [...state.playlist, action.payload],
+        playlist:
+          state.playlist.length === 0 || state.playlist[0][0] === undefined
+            ? [...state.playlist, action.payload]
+            : [...state.playlist[0], action.payload],
       };
     case DELETE_PLAYLIST:
+      console.log(action.payload);
       return {
         ...state,
-        playlist: state.playlist.filter(item => item.name === action.payload),
+        playlist: state.playlist.filter(
+          item => item.name !== action.payload.name,
+        ),
       };
     case ADD_TO_PLAYLIST:
       return {
@@ -144,6 +152,16 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         audio: action.payload,
+      };
+    case ADD_TO_WISHLIST:
+      return {
+        ...state,
+        wishlist: [...state.wishlist, action.payload],
+      };
+    case DELETE_FROM_WISHLIST:
+      return {
+        ...state,
+        wishlist: state.wishlist.filter(item => item.id !== action.payload.id),
       };
     default:
       return state;

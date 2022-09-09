@@ -16,13 +16,15 @@ import {useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
 import useSearch from '../hooks/useSearch';
+import useSearchArtist from '../hooks/useSearchArtist';
 import useShowPassword from '../hooks/useShowPassword';
 import useValidateEmail from '../hooks/validate/useValidateEmail';
 import useValidatePassword from '../hooks/validate/useValidatePassword';
 import {showPasswordSelector} from '../store/selectors';
 
 const InputItem = props => {
-  const {placeholder, value, setValue, setSearchList} = props;
+  const {placeholder, value, setValue, setSearchList, setSearchArtistList} =
+    props;
 
   const showPassword = useShowPassword();
   const isShowPassword = useSelector(showPasswordSelector);
@@ -33,6 +35,7 @@ const InputItem = props => {
       : placeholder === 'Mật khẩu' && useValidatePassword(value);
 
   const searchList = useSearch(value);
+  const searchArtistList = useSearchArtist(value);
 
   return (
     <SafeAreaView>
@@ -40,8 +43,10 @@ const InputItem = props => {
         <TextInput
           value={value}
           onChangeText={e => {
-            placeholder === 'Nhập từ khoá tìm kiếm...' &&
+            if (placeholder === 'Nhập từ khoá tìm kiếm...') {
               setSearchList(searchList);
+              setSearchArtistList(searchArtistList);
+            }
             setValue(e);
           }}
           secureTextEntry={

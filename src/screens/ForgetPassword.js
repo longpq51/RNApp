@@ -1,5 +1,13 @@
 import {useState} from 'react';
-import {Image, SafeAreaView, Text, TextInput, View} from 'react-native';
+import {
+  Image,
+  Platform,
+  SafeAreaView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
 import BtnUI from '../components/BtnUI';
@@ -11,10 +19,11 @@ const ForgetPassword = () => {
 
   return (
     <SafeAreaView style={tw`flex-1`}>
-      <View style={tw`absolute m-5`}>
+      <View style={tw`m-5 `}>
         <GoBackBtn />
       </View>
-      <View style={tw`items-center justify-center flex-1`}>
+
+      <View style={tw`items-center justify-center flex-1 mb-20`}>
         <Image source={require('../assets/logo.png')} />
 
         <Text style={tw`text-${colors.primary} w-64 text-center mb-5`}>

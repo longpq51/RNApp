@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {Image, Text, TouchableOpacity} from 'react-native';
 import tw from 'tailwind-react-native-classnames';
+import {colors} from '../assets/colors';
 import ArtistModal from './ArtistModal';
 
 const ArtistItem = props => {
@@ -10,9 +11,11 @@ const ArtistItem = props => {
   return (
     <TouchableOpacity
       style={tw`w-20 justify-center items-center m-3`}
-      onPress={() => setIsShowModal(true)}>
+      onPress={() => {
+        setIsShowModal(true);
+      }}>
       <Image source={item.artwork} style={tw`h-12 w-12 rounded-full`} />
-      <Text numberOfLines={1} style={tw`text-center`}>
+      <Text numberOfLines={1} style={tw`text-center text-${colors.primary}`}>
         {item.artist}
       </Text>
 

@@ -3,10 +3,12 @@ import {useDispatch} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
 import {
+  deleteFromWishlist,
   setAudioPlaying,
   setIsShowModalPlayer,
   setPlayPlaylist,
 } from '../store/actions';
+import TrashBtn from './buttons/TrashBtn';
 
 const WishlistCard = props => {
   const {item} = props;
@@ -23,6 +25,10 @@ const WishlistCard = props => {
     dispatchRedux(setPlayPlaylist(data));
   };
 
+  const dispatchDeleteFromWishlist = data => {
+    dispatchRedux(deleteFromWishlist(data));
+  };
+
   return (
     <TouchableOpacity
       style={tw`w-1/2`}
@@ -31,17 +37,24 @@ const WishlistCard = props => {
         dispatchAudioPlaying(item);
         dispatchPlayPlaylist({name: '', type: false});
       }}>
-      <View style={tw`bg-${colors.background} m-2 rounded-md`}>
-        <Image source={item.artwork} style={tw`h-32 w-full rounded-md mr-3`} />
-        <View style={tw`m-3`}>
-          <Text
-            style={tw`font-bold text-lg text-${colors.primary}`}
-            numberOfLines={1}>
-            {item.title}
-          </Text>
-          <Text style={tw`text-xs`} numberOfLines={1}>
-            {item.artist}
-          </Text>
+      <View style={tw`bg-${colors.textColor} m-2 rounded-md shadow-md`}>
+        <Image
+          source={item.artwork}
+          style={tw`h-32 w-full rounded-t-md mr-3`}
+        />
+        <View style={tw`m-3 flex-row items-center justify-between`}>
+          <View style={tw`w-32`}>
+            <Text
+              style={tw`font-bold text-lg text-${colors.primary}`}
+              numberOfLines={1}>
+              {item.title}
+            </Text>
+            <Text style={tw`text-xs`} numberOfLines={1}>
+              {item.artist}
+            </Text>
+          </View>
+
+          <TrashBtn onPress={() => dispatchDeleteFromWishlist(item)} />
         </View>
       </View>
     </TouchableOpacity>
