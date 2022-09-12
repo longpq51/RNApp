@@ -5,6 +5,7 @@ import {
   DELETE_FROM_PLAYLIST,
   DELETE_FROM_WISHLIST,
   DELETE_PLAYLIST,
+  SET_ALBUM,
   SET_AUDIO,
   SET_AUDIO_PLAYING,
   SET_IS_SHOW_MINI_PLAYER,
@@ -15,7 +16,6 @@ import {
   SET_REPEAT,
   SET_SHOW_PASSWORD,
   SET_SPIN_VALUE,
-  SET_UPDATE,
   SET_USER_INFO,
 } from './constains';
 
@@ -101,5 +101,10 @@ export const addToWishlist = data => ({
 
 export const deleteFromWishlist = data => ({
   type: DELETE_FROM_WISHLIST,
+  payload: data,
+});
+
+export const setAlbum = data => ({
+  type: SET_ALBUM,
   payload: data,
 });

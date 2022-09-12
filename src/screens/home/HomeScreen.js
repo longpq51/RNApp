@@ -7,15 +7,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Header from '../components/Header';
 import tw from 'tailwind-react-native-classnames';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
-import ModalSearch from '../components/ModalSearch';
-import {images} from '../assets/images';
-import Playlist from '../components/playlist/Playlist';
 import {useNavigation} from '@react-navigation/native';
-import {tracks} from '../../data';
-import ArtistItem from '../components/ArtistItem';
+import {ScrollView} from 'react-native-virtualized-view';
+import Header from '../../components/Header';
+import Playlist from '../../components/playlist/Playlist';
+import ModalSearch from '../../components/ModalSearch';
+import Albums from '../../components/albums/Albums';
+import ArtistItem from '../../components/ArtistItem';
+import {images} from '../../assets/images';
+import {tracks} from '../../../data';
 
 const HomeScreen = props => {
   const [searchValue, setSearchValue] = useState('');
@@ -37,16 +39,19 @@ const HomeScreen = props => {
           <Header logo="" icon={[faSearch]} />
         </View>
       </View>
+      <ScrollView>
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          data={tracks}
+          keyExtractor={key => key.id}
+          renderItem={item => <ArtistItem item={item.item} />}
+        />
 
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        data={tracks}
-        keyExtractor={key => key.id}
-        renderItem={item => <ArtistItem item={item.item} />}
-      />
+        <Albums />
 
-      <Playlist />
+        <Playlist />
+      </ScrollView>
     </SafeAreaView>
   );
 };

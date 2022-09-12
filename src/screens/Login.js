@@ -1,6 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
-import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  Linking,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
 import BtnUI from '../components/BtnUI';
@@ -8,6 +15,7 @@ import InputItem from '../components/InputItem';
 import useValidateEmail from '../hooks/validate/useValidateEmail';
 import useValidatePassword from '../hooks/validate/useValidatePassword';
 import Toast from 'react-native-toast-message';
+import useGetToken from '../hooks/spotify/useGetToken';
 
 const Login = props => {
   const navigation = useNavigation();
@@ -17,6 +25,8 @@ const Login = props => {
 
   const validateEmail = useValidateEmail(email);
   const validatePassword = useValidatePassword(password);
+
+  const {token, getToken} = useGetToken();
 
   return (
     <SafeAreaView>
@@ -65,6 +75,13 @@ const Login = props => {
             </TouchableOpacity>
           </View>
         </View>
+
+        <TouchableOpacity
+          onPress={() => {
+            getToken();
+          }}>
+          <Text>Spotify</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

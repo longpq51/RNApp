@@ -17,7 +17,7 @@ const Header = props => {
   const onPress = useOnPress();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={tw``}>
       <View
         style={[
           tw`bg-${colors.primary} rounded-full m-2 flex flex-row justify-between items-center p-3`,

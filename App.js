@@ -13,16 +13,19 @@ import Navigator from './src/navigation/Navigator';
 import {createStore} from '@reduxjs/toolkit';
 import rootReducer from './src/store/reducer';
 import Toast from 'react-native-toast-message';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 const store = createStore(rootReducer);
 
 const App = () => {
   return (
     <TailwindProvider>
-      <Provider store={store}>
-        <Navigator />
-        <Toast />
-      </Provider>
+      <SafeAreaProvider>
+        <Provider store={store}>
+          <Navigator />
+          <Toast />
+        </Provider>
+      </SafeAreaProvider>
     </TailwindProvider>
   );
 };

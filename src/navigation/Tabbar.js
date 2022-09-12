@@ -1,5 +1,4 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import {
   faHome,
@@ -16,6 +15,7 @@ import {View} from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import AccountNavigator from '../screens/account/AccountNavigator';
 import Player from '../screens/Player';
+import HomeNavigator from '../screens/home/HomeNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -55,7 +55,7 @@ const Tabbar = () => {
     <View style={tw`flex-1`}>
       <MiniPlayer />
       <Tab.Navigator screenOptions={screenOptions}>
-        <Tab.Screen name="Trang chủ" component={HomeScreen} />
+        <Tab.Screen name="Trang chủ" component={HomeNavigator} />
         <Tab.Screen name="Yêu thích" component={WishlistScreen} />
         <Tab.Screen name="Tài khoản" component={AccountNavigator} />
         <Tab.Screen name="Cài đặt" component={SettingsScreen} />

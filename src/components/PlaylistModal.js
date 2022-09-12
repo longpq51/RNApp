@@ -22,8 +22,11 @@ const PlaylistModal = props => {
           <ScrollView>
             <FlatList
               data={
-                playlist[0].filter(item => item.name === playPlaylist.name)[0]
-                  .data
+                playPlaylist.name !== ''
+                  ? playlist[0].filter(
+                      item => item.name === playPlaylist.name,
+                    )[0].data
+                  : []
               }
               keyExtractor={key => key.id}
               renderItem={item => <PlaylistItem data={item} />}

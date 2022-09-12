@@ -6,6 +6,7 @@ import {
   DELETE_FROM_PLAYLIST,
   DELETE_FROM_WISHLIST,
   DELETE_PLAYLIST,
+  SET_ALBUM,
   SET_AUDIO,
   SET_AUDIO_PLAYING,
   SET_IS_SHOW_MINI_PLAYER,
@@ -40,6 +41,7 @@ const initialState = {
   },
   audio: {},
   wishlist: [],
+  album: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -162,6 +164,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         wishlist: state.wishlist.filter(item => item.id !== action.payload.id),
+      };
+    case SET_ALBUM:
+      return {
+        ...state,
+        album: action.payload,
       };
     default:
       return state;
