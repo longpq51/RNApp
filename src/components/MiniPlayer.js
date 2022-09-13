@@ -24,6 +24,7 @@ import {
 import PlayBtn from './buttons/PlayBtn';
 import WishlistBtn from './buttons/WishlistBtn';
 import CDAnimation from './CDAnimation';
+import ArtistList from './playlist/ArtistList';
 import SliderUI from './Slider';
 
 const MiniPlayer = props => {
@@ -63,11 +64,15 @@ const MiniPlayer = props => {
                 style={tw`font-bold text-xl text-${colors.textColorPrimary}`}>
                 {item.title}
               </Text>
-              <Text
-                style={[tw`text-${colors.textColor}`, {width: 150}]}
-                numberOfLines={1}>
-                {item.artist}
-              </Text>
+              {Array.isArray(item.artist) ? (
+                <ArtistList data={item.artist} color="text-white" />
+              ) : (
+                <Text
+                  style={[tw`text-${colors.textColor}`, {width: 150}]}
+                  numberOfLines={1}>
+                  {item.artist}
+                </Text>
+              )}
             </View>
           </TouchableOpacity>
 

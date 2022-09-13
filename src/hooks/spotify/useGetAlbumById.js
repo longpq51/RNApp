@@ -2,12 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
 import {instance} from '../../services/serviceSpotify';
 
-const useGetAlbums = () => {
-  const [albumsList, setAlbumsList] = useState([]);
+const useGetAlbumById = id => {
+  const [album, setAlbum] = useState([]);
   const [token, setToken] = useState('');
-
-  const albums =
-    '4nfpHvg7KFcAUTg6yajpvN,4aawyAB9vmqN3uQ7FjRGTy,0VcUiF3nAK2UWeWpRzESob,7qIYRB5Hx88CJaj1Lx8EVN,6wDnpetqcsDPZpD0lDlqyj,2dZsaSnVn5i5uBg6FnhUVV';
 
   const options = {
     method: 'GET',
@@ -15,27 +12,25 @@ const useGetAlbums = () => {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token,
     },
-    params: {
-      ids: albums,
-    },
+    // params: {
+    //   id: id,
+    // },
   };
 
   useEffect(() => {
+    console.log(id);
     const fn = async () => {
       await AsyncStorage.getItem('token').then(res => setToken(res));
 
       await instance
-        .request(`albums`, options)
-        .then(res => setAlbumsList(res.data.albums))
+        .request(`albums/${id}`, options)
+        .then(res => setAlbum(res.data.tracks.items))
         .catch(err => console.log(err.response.data));
     };
     fn();
   }, [token]);
 
-  return {
-    albumsList,
-    // getAlbums,
-  };
+  return album;
 };
 
-export default useGetAlbums;
+export default useGetAlbumById;

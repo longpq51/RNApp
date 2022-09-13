@@ -36,7 +36,9 @@ const SliderUI = props => {
             {convertTime(progress.position)}
           </Text>
           <Text style={tw`text-${colors.textColor}`}> / </Text>
-          <Text style={tw`text-${colors.textColor}`}>{item.duration}</Text>
+          <Text style={tw`text-${colors.textColor}`}>
+            {convertTime(progress.duration)}
+          </Text>
         </View>
       )}
 

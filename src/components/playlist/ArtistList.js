@@ -1,7 +1,8 @@
 import {FlatList, Text} from 'react-native';
+import tw from 'tailwind-react-native-classnames';
 
 const ArtistList = props => {
-  const {data} = props;
+  const {data, color} = props;
 
   return (
     <FlatList
@@ -10,11 +11,11 @@ const ArtistList = props => {
       keyExtractor={key => key.id}
       renderItem={({item, index}) =>
         data.length === 1 ? (
-          <Text>{item.name}</Text>
+          <Text style={tw`${color}`}>{item.name}</Text>
         ) : index === data.length - 1 ? (
-          <Text>{item.name}</Text>
+          <Text style={tw`${color}`}>{item.name}</Text>
         ) : (
-          <Text>{item.name}, </Text>
+          <Text style={tw`${color}`}>{item.name}, </Text>
         )
       }
     />

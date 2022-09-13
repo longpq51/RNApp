@@ -5,6 +5,7 @@ import {
   faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {useEffect} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -23,7 +24,7 @@ import useValidatePassword from '../hooks/validate/useValidatePassword';
 import {showPasswordSelector} from '../store/selectors';
 
 const InputItem = props => {
-  const {placeholder, value, setValue, setSearchList, setSearchArtistList} =
+  const {placeholder, value, setValue, setSearchList, setSearchArtistList, fn} =
     props;
 
   const showPassword = useShowPassword();
@@ -46,6 +47,7 @@ const InputItem = props => {
             if (placeholder === 'Nhập từ khoá tìm kiếm...') {
               setSearchList(searchList);
               setSearchArtistList(searchArtistList);
+              fn(e);
             }
             setValue(e);
           }}

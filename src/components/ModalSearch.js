@@ -1,6 +1,6 @@
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   FlatList,
   Modal,
@@ -13,11 +13,16 @@ import {ScrollView} from 'react-native-virtualized-view';
 import {useDispatch, useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
+import useSearchSpotify from '../hooks/spotify/useSearchSpotify';
+import useDebounce from '../hooks/useDebounce';
 import {setModalSearchVisible} from '../store/actions';
 import {modalSearchVisibleSelector} from '../store/selectors';
-import ArtistItem from './ArtistItem';
+import Albums from './albums/Albums';
+import Artists from './artists/Artists';
 import InputItem from './InputItem';
-import PlaylistItem from './playlist/PlaylistItem';
+import PlaylistSpotifyItem from './playlist/PlaylistSpotifyItem';
+import SearchRes from './SearchRes';
+import Title from './Title';
 
 const ModalSearch = props => {
   const {value, setValue} = props;
@@ -31,6 +36,9 @@ const ModalSearch = props => {
     dispatchRedux(setModalSearchVisible(data));
   };
 
+  const {searchData, fn} = useSearchSpotify();
+  console.log(searchData);
+
   return (
     <Modal
       animationType="slide"
@@ -40,62 +48,43 @@ const ModalSearch = props => {
         Alert.alert('Modal has been closed.');
         setModalVisible(!modalSearchVisible);
       }}>
-      <SafeAreaView style={tw`bg-white flex-1 w-full`}>
-        <View style={tw`flex flex-row items-center mx-2`}>
-          <View style={tw`flex-1`}>
-            <InputItem
-              setSearchArtistList={setSearchArtistList}
-              setSearchList={setSearchList}
-              placeholder="Nhập từ khoá tìm kiếm..."
-              value={value}
-              setValue={setValue}
-            />
+      <SafeAreaView style={tw`bg-gray-100 flex-1 w-full`}>
+        <ScrollView>
+          <View style={tw`flex flex-row items-center mx-2`}>
+            <View style={tw`flex-1`}>
+              <InputItem
+                // setText={setText}
+                fn={fn}
+                setSearchArtistList={setSearchArtistList}
+                setSearchList={setSearchList}
+                placeholder="Nhập từ khoá tìm kiếm..."
+                value={value}
+                setValue={setValue}
+              />
+            </View>
+            <TouchableOpacity
+              style={tw`mt-2 text-${colors.primary} ml-2`}
+              onPress={() => dispatchModalSearchVisible(false)}>
+              <FontAwesomeIcon
+                icon={faClose}
+                size={30}
+                color={colors.rgbPrimary}
+              />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={tw`mt-2 text-${colors.primary} ml-2`}
-            onPress={() => dispatchModalSearchVisible(false)}>
-            <FontAwesomeIcon
-              icon={faClose}
-              size={30}
-              color={colors.rgbPrimary}
-            />
-          </TouchableOpacity>
-        </View>
 
-        <Text style={tw`font-bold text-${colors.primary} ml-3 mt-5`}>
-          Danh sách tìm kiếm
-        </Text>
+          <Text style={tw`font-bold text-${colors.primary} ml-3 mt-5`}>
+            Danh sách tìm kiếm
+          </Text>
 
-        {searchArtistList.length > 0 && value.length > 0 && (
-          <View>
-            <FlatList
-              contentContainerStyle={tw`h-20 w-full items-center`}
-              horizontal
-              data={searchArtistList}
-              keyExtractor={key => key.id}
-              renderItem={item => <ArtistItem item={item.item} />}
-            />
-          </View>
-        )}
-
-        {searchList.length > 0 && value.length > 0 ? (
-          <ScrollView style={tw`w-full h-2/3`}>
-            <FlatList
-              data={searchList}
-              keyExtractor={key => key.id}
-              renderItem={item => (
-                <PlaylistItem
-                  data={item}
-                  modalVisible={dispatchModalSearchVisible}
-                />
-              )}
-            />
-          </ScrollView>
-        ) : (
-          <View style={tw`flex-1 items-center justify-center`}>
-            <Text>Không có bài hát nào</Text>
-          </View>
-        )}
+          {searchData.data !== undefined ? (
+            <SearchRes searchData={searchData} />
+          ) : (
+            <View>
+              <Text>Không có kết quả nào</Text>
+            </View>
+          )}
+        </ScrollView>
       </SafeAreaView>
     </Modal>
   );

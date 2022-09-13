@@ -12,19 +12,26 @@ import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import {useNavigation} from '@react-navigation/native';
 import {ScrollView} from 'react-native-virtualized-view';
 import Header from '../../components/Header';
-import Playlist from '../../components/playlist/Playlist';
 import ModalSearch from '../../components/ModalSearch';
 import Albums from '../../components/albums/Albums';
-import ArtistItem from '../../components/ArtistItem';
 import {images} from '../../assets/images';
 import {tracks} from '../../../data';
+import Artists from '../../components/artists/Artists';
+import useGetAlbums from '../../hooks/spotify/useGetAlbums';
+import {useSelector} from 'react-redux';
+import {isShowMiniPlayerSelector} from '../../store/selectors';
+import Playlist from '../../components/playlist/Playlist';
+import useGetArtists from '../../hooks/spotify/useGetArtists';
 
 const HomeScreen = props => {
   const [searchValue, setSearchValue] = useState('');
   const navigation = useNavigation();
+  const {albumsList} = useGetAlbums();
+  const artists = useGetArtists();
+  const isShowMiniPlayer = useSelector(isShowMiniPlayerSelector);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={tw`${!isShowMiniPlayer ? 'h-full' : 'h-5/6'}`}>
       <ModalSearch value={searchValue} setValue={setSearchValue} />
       <View style={tw`flex flex-row items-center`}>
         <TouchableOpacity onPress={() => navigation.navigate('Tài khoản')}>
@@ -40,15 +47,9 @@ const HomeScreen = props => {
         </View>
       </View>
       <ScrollView>
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          data={tracks}
-          keyExtractor={key => key.id}
-          renderItem={item => <ArtistItem item={item.item} />}
-        />
+        <Artists artists={artists} title="Nghệ sĩ nổi bật" />
 
-        <Albums />
+        <Albums albumsList={albumsList} title="Album nổi bật" />
 
         <Playlist />
       </ScrollView>

@@ -9,16 +9,12 @@ const PlaylistScreen = props => {
   const isShowMiniPlayer = useSelector(isShowMiniPlayerSelector);
 
   return (
-    <ScrollView
-      nestedScrollEnabled={true}
-      style={{height: isShowMiniPlayer ? 400 : 510}}>
-      <FlatList
-        scrollEnabled
-        data={data}
-        keyExtractor={item => item[0].id}
-        renderItem={item => <PlaylistItem data={item} />}
-      />
-    </ScrollView>
+    <FlatList
+      scrollEnabled
+      data={data}
+      keyExtractor={item => item[0].id}
+      renderItem={item => <PlaylistItem data={item} />}
+    />
   );
 };
 

@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {useRoute} from '@react-navigation/native';
 import {FlatList, Image, SafeAreaView, Text, View} from 'react-native';
 import {ScrollView} from 'react-native-virtualized-view';
+import {useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../../assets/colors';
 import BtnUI from '../../components/BtnUI';
@@ -15,17 +16,20 @@ import PlaylistItem from '../../components/playlist/PlaylistItem';
 import PlaylistSpotifyItem from '../../components/playlist/PlaylistSpotifyItem';
 import Title from '../../components/Title';
 import usePlayPlaylist from '../../hooks/playlist/usePlayPlaylist';
+import useGetAlbumById from '../../hooks/spotify/useGetAlbumById';
 import useConvertObject from '../../hooks/useConvertObject';
+import {isShowMiniPlayerSelector} from '../../store/selectors';
 
 const AlbumScreen = props => {
   const route = useRoute();
   const {item} = route.params;
   const artists = item.artists;
-  const tracks = item.tracks.items;
+  const tracks =
+    item.tracks !== undefined ? item.tracks.items : useGetAlbumById(item.id);
+  console.log(tracks);
 
   const fn = useConvertObject();
   const tracksAfter = tracks.map(item => fn(item));
-  console.log(tracksAfter);
 
   const {
     dispatchPlayPlaylist,
@@ -33,8 +37,10 @@ const AlbumScreen = props => {
     dispatchIsShowModalPlayer,
   } = usePlayPlaylist();
 
+  const isShowMiniPlayer = useSelector(isShowMiniPlayerSelector);
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={tw`${!isShowMiniPlayer ? 'h-full' : 'h-5/6'}`}>
       <GoBackBtn />
 
       <ScrollView>
@@ -44,7 +50,9 @@ const AlbumScreen = props => {
             style={tw`max-w-full h-64 mx-20 my-10 rounded-lg drop-shadow-xl`}
           />
           <View style={tw`items-center w-full`}>
-            <Title title={item.name} size="text-xl" />
+            <View style={tw`w-2/3 items-center`}>
+              <Title title={item.name} size="text-xl" />
+            </View>
             <View style={tw`flex-row justify-center w-1/2 justify-center`}>
               <Text style={tw`capitalize`}>{item.album_type}</Text>
               <FontAwesomeIcon icon={faCircleDot} style={tw`mx-2`} />
@@ -79,7 +87,9 @@ const AlbumScreen = props => {
           <FlatList
             data={tracks}
             keyExtractor={key => key.id}
-            renderItem={item => <PlaylistSpotifyItem item={item.item} />}
+            renderItem={({item, index}) => (
+              <PlaylistSpotifyItem item={item} index={index + 1} />
+            )}
           />
         </View>
       </ScrollView>

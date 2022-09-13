@@ -3,7 +3,7 @@ const useConvertObject = () => {
     return {
       id: item.id,
       title: item.name,
-      // artist: item.artists,
+      artist: item.artists,
       duration: item.duration_ms,
       url: item.preview_url,
       artwork: require('../../data/artworks/getlucky.png'),

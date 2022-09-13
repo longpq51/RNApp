@@ -8,10 +8,12 @@ import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
 import {setIsShowMiniPlayer, setIsShowModalPlayer} from '../store/actions';
 import WishlistBtn from './buttons/WishlistBtn';
+import ArtistList from './playlist/ArtistList';
 
 const HeaderPlayer = props => {
   const navigation = useNavigation();
   const {item} = props;
+  // console.log(item);
 
   const dispatchRedux = useDispatch();
   const dispatchIsShowMiniPlayer = data => {
@@ -40,7 +42,11 @@ const HeaderPlayer = props => {
               numberOfLines={1}>
               {item.title}
             </Text>
-            <Text numberOfLines={1}>{item.artist}</Text>
+            {Array.isArray(item.artist) ? (
+              <ArtistList data={item.artist} />
+            ) : (
+              <Text numberOfLines={1}>{item.artist}</Text>
+            )}
           </View>
         </View>
         <WishlistBtn item={item} />

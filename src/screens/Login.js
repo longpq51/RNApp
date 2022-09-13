@@ -59,13 +59,15 @@ const Login = props => {
           <BtnUI
             text="Đăng nhập"
             onPress={() => {
-              validateEmail && validatePassword
-                ? navigation.navigate('Tabbar')
-                : Toast.show({
-                    type: 'error',
-                    text1: 'Mật khẩu hoặc email không hợp lệ',
-                    text2: 'Kiểm tra lại thông tin đăng nhập nhé! 👋',
-                  });
+              if (validateEmail && validatePassword) {
+                navigation.navigate('Tabbar');
+                getToken();
+              } else
+                Toast.show({
+                  type: 'error',
+                  text1: 'Mật khẩu hoặc email không hợp lệ',
+                  text2: 'Kiểm tra lại thông tin đăng nhập nhé! 👋',
+                });
             }}
           />
           <View style={tw`items-center flex flex-row justify-center mt-3`}>
@@ -75,13 +77,6 @@ const Login = props => {
             </TouchableOpacity>
           </View>
         </View>
-
-        <TouchableOpacity
-          onPress={() => {
-            getToken();
-          }}>
-          <Text>Spotify</Text>
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
