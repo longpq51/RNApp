@@ -35,8 +35,8 @@ const InputItem = props => {
       ? useValidateEmail(value)
       : placeholder === 'Mật khẩu' && useValidatePassword(value);
 
-  const searchList = useSearch(value);
-  const searchArtistList = useSearchArtist(value);
+  // const searchList = useSearch(value);
+  // const searchArtistList = useSearchArtist(value);
 
   return (
     <SafeAreaView>
@@ -44,12 +44,12 @@ const InputItem = props => {
         <TextInput
           value={value}
           onChangeText={e => {
-            if (placeholder === 'Nhập từ khoá tìm kiếm...') {
-              setSearchList(searchList);
-              setSearchArtistList(searchArtistList);
-              fn(e);
-            }
             setValue(e);
+            if (placeholder === 'Nhập từ khoá tìm kiếm...') {
+              // setSearchList(searchList);
+              // setSearchArtistList(searchArtistList);
+              fn(value);
+            }
           }}
           secureTextEntry={
             placeholder === 'Mật khẩu' && !isShowPassword ? true : false

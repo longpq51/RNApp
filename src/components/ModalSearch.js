@@ -27,8 +27,8 @@ import Title from './Title';
 const ModalSearch = props => {
   const {value, setValue} = props;
 
-  const [searchList, setSearchList] = useState([]);
-  const [searchArtistList, setSearchArtistList] = useState([]);
+  // const [searchList, setSearchList] = useState([]);
+  // const [searchArtistList, setSearchArtistList] = useState([]);
 
   const modalSearchVisible = useSelector(modalSearchVisibleSelector);
   const dispatchRedux = useDispatch();
@@ -37,7 +37,6 @@ const ModalSearch = props => {
   };
 
   const {searchData, fn} = useSearchSpotify();
-  console.log(searchData);
 
   return (
     <Modal
@@ -49,36 +48,32 @@ const ModalSearch = props => {
         setModalVisible(!modalSearchVisible);
       }}>
       <SafeAreaView style={tw`bg-gray-100 flex-1 w-full`}>
-        <ScrollView>
-          <View style={tw`flex flex-row items-center mx-2`}>
-            <View style={tw`flex-1`}>
-              <InputItem
-                // setText={setText}
-                fn={fn}
-                setSearchArtistList={setSearchArtistList}
-                setSearchList={setSearchList}
-                placeholder="Nhập từ khoá tìm kiếm..."
-                value={value}
-                setValue={setValue}
-              />
-            </View>
-            <TouchableOpacity
-              style={tw`mt-2 text-${colors.primary} ml-2`}
-              onPress={() => dispatchModalSearchVisible(false)}>
-              <FontAwesomeIcon
-                icon={faClose}
-                size={30}
-                color={colors.rgbPrimary}
-              />
-            </TouchableOpacity>
+        <View style={tw`flex flex-row items-center mx-2`}>
+          <View style={tw`flex-1`}>
+            <InputItem
+              fn={fn}
+              placeholder="Nhập từ khoá tìm kiếm..."
+              value={value}
+              setValue={setValue}
+            />
           </View>
-
+          <TouchableOpacity
+            style={tw`mt-2 text-${colors.primary} ml-2`}
+            onPress={() => dispatchModalSearchVisible(false)}>
+            <FontAwesomeIcon
+              icon={faClose}
+              size={30}
+              color={colors.rgbPrimary}
+            />
+          </TouchableOpacity>
+        </View>
+        <ScrollView>
           <Text style={tw`font-bold text-${colors.primary} ml-3 mt-5`}>
             Danh sách tìm kiếm
           </Text>
 
           {searchData.data !== undefined ? (
-            <SearchRes searchData={searchData} />
+            <SearchRes searchData={searchData} value={value} fn={fn} />
           ) : (
             <View>
               <Text>Không có kết quả nào</Text>

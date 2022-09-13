@@ -15,7 +15,6 @@ import Header from '../../components/Header';
 import ModalSearch from '../../components/ModalSearch';
 import Albums from '../../components/albums/Albums';
 import {images} from '../../assets/images';
-import {tracks} from '../../../data';
 import Artists from '../../components/artists/Artists';
 import useGetAlbums from '../../hooks/spotify/useGetAlbums';
 import {useSelector} from 'react-redux';

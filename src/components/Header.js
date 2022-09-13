@@ -23,7 +23,7 @@ const Header = props => {
           tw`bg-${colors.primary} rounded-full m-2 flex flex-row justify-between items-center p-3`,
         ]}>
         {logo !== undefined ? (
-          <View style={tw`flex flex-row justify-center`}>
+          <View style={tw`flex flex-row justify-center items-center`}>
             <Image source={require('../assets/logo.png')} style={tw`w-8 h-8`} />
             <Text style={tw`text-${colors.textColorPrimary} text-xl`}>
               KAMA SUTRA

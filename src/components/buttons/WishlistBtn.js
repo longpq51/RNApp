@@ -18,12 +18,13 @@ const WishlistBtn = props => {
     dispatchRedux(deleteFromWishlist(data));
   };
 
-  const checkWishlist = useCheckWishlist(item);
+  const checkWishlist = item !== undefined ? useCheckWishlist(item) : undefined;
 
   return (
     <TouchableOpacity
       style={tw`p-2`}
       onPress={() => {
+        console.log(item);
         dispatchAddToWishlist(item);
         checkWishlist !== undefined && dispatchDeleteFromWishlist(item);
       }}>

@@ -9,6 +9,7 @@ import {
   setPlayPlaylist,
 } from '../store/actions';
 import TrashBtn from './buttons/TrashBtn';
+import ArtistList from './playlist/ArtistList';
 
 const WishlistCard = props => {
   const {item} = props;
@@ -49,9 +50,13 @@ const WishlistCard = props => {
               numberOfLines={1}>
               {item.title}
             </Text>
-            <Text style={tw`text-xs`} numberOfLines={1}>
-              {item.artist}
-            </Text>
+            {Array.isArray(item.artist) ? (
+              <ArtistList data={item.artist} />
+            ) : (
+              <Text style={tw`text-xs`} numberOfLines={1}>
+                {item.artist}
+              </Text>
+            )}
           </View>
 
           <TrashBtn onPress={() => dispatchDeleteFromWishlist(item)} />

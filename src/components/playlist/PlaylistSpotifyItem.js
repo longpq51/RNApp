@@ -9,6 +9,7 @@ import {
   setModalSearchVisible,
   setPlayPlaylist,
 } from '../../store/actions';
+import WishlistBtn from '../buttons/WishlistBtn';
 import Title from '../Title';
 import ArtistList from './ArtistList';
 
@@ -50,6 +51,8 @@ const PlaylistSpotifyItem = props => {
         <Title title={item.name} />
         <ArtistList data={artists} />
       </View>
+      <View style={tw`flex-1`}></View>
+      <WishlistBtn item={fn(item)} />
     </TouchableOpacity>
   );
 };

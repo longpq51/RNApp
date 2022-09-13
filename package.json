@@ -27,7 +27,6 @@
     "axios": "^0.27.2",
     "react": "17.0.2",
     "react-native": "0.68.2",
-    "react-native-custom-slider": "^1.0.2",
     "react-native-date-picker": "^4.2.5",
     "react-native-hyperlink": "^0.0.22",
     "react-native-lazyload": "^1.1.0",

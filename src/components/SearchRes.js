@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import {FlatList, View} from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import useDebounce from '../hooks/useDebounce';
@@ -9,11 +10,11 @@ import Title from './Title';
 const SearchRes = props => {
   const {searchData, value, fn} = props;
 
-  //   let debounced = useDebounce(value, 300);
+  // let debounced = useDebounce(value, 300);
 
-  //   useEffect(() => {
-  //     fn(debounced);
-  //   }, [value]);
+  // useEffect(() => {
+  //   fn(debounced);
+  // }, [value]);
 
   return (
     <View>

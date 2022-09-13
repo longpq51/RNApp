@@ -10,7 +10,9 @@ const GoBackBtn = props => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity style={tw`${style}`} onPress={() => navigation.goBack()}>
+    <TouchableOpacity
+      style={tw`${style} p-3`}
+      onPress={() => navigation.goBack()}>
       <FontAwesomeIcon
         icon={faChevronLeft}
         size={30}
