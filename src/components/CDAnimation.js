@@ -12,6 +12,7 @@ import {
 const CDAnimation = props => {
   const {item, size, spin, start, stop} = props;
   const playbackState = usePlaybackState();
+  // console.log(item);
 
   useEffect(() => {
     playbackState === State.Playing ? start() : stop();

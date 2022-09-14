@@ -46,24 +46,26 @@ const AddAudioBtn = props => {
               <View style={tw`flex-row items-center justify-between w-full`}>
                 <PlaylistItem data={item} />
 
-                <TouchableOpacity
-                  onPress={() => {
-                    dispatchAddToPlaylist({
-                      namePlaylist: name,
-                      data: item.item,
-                    });
-                    check(item.item) !== undefined &&
-                      dispatchDeleteFromPlaylist({
+                {check(item.item) === undefined && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      dispatchAddToPlaylist({
                         namePlaylist: name,
                         data: item.item,
                       });
-                  }}
-                  style={tw`border border-2 border-${colors.primary} p-3 mr-3 rounded-full`}>
-                  <FontAwesomeIcon
-                    icon={check(item.item) !== undefined ? faCheck : faAdd}
-                    style={tw`text-${colors.primary}`}
-                  />
-                </TouchableOpacity>
+                      check(item.item) !== undefined &&
+                        dispatchDeleteFromPlaylist({
+                          namePlaylist: name,
+                          data: item.item,
+                        });
+                    }}
+                    style={tw`border border-2 border-${colors.primary} p-3 mr-3 rounded-full`}>
+                    <FontAwesomeIcon
+                      icon={faAdd}
+                      style={tw`text-${colors.primary}`}
+                    />
+                  </TouchableOpacity>
+                )}
               </View>
             )}
           />

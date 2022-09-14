@@ -8,7 +8,6 @@ import {
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import WishlistScreen from '../screens/WishlistScreen';
 import {colors} from '../assets/colors';
 import MiniPlayer from '../components/MiniPlayer';
 import {View} from 'react-native';
@@ -16,6 +15,9 @@ import tw from 'tailwind-react-native-classnames';
 import AccountNavigator from '../screens/account/AccountNavigator';
 import Player from '../screens/Player';
 import HomeNavigator from '../screens/home/HomeNavigator';
+import {useSelector} from 'react-redux';
+import {wishlistSelector} from '../store/selectors';
+import WishlistNavigator from '../screens/wishlist/WishlistNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -51,12 +53,25 @@ const Tabbar = () => {
     tabBarHideOnKeyboard: true,
   });
 
+  const wishlist = useSelector(wishlistSelector);
+
   return (
     <View style={tw`flex-1`}>
       <MiniPlayer />
       <Tab.Navigator screenOptions={screenOptions}>
         <Tab.Screen name="Trang chủ" component={HomeNavigator} />
-        <Tab.Screen name="Yêu thích" component={WishlistScreen} />
+        <Tab.Screen
+          name="Yêu thích"
+          component={WishlistNavigator}
+          options={{
+            tabBarBadge: wishlist.length !== 0 ? wishlist.length : undefined,
+            tabBarBadgeStyle: {
+              backgroundColor: colors.rgbTextColorPrimary,
+              fontSize: 10,
+              color: colors.rgbPrimary,
+            },
+          }}
+        />
         <Tab.Screen name="Tài khoản" component={AccountNavigator} />
         <Tab.Screen name="Cài đặt" component={SettingsScreen} />
       </Tab.Navigator>

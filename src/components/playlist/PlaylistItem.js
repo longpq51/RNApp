@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/native';
 import {
   Image,
   Modal,
@@ -10,7 +9,7 @@ import {
 import {useDispatch} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../../assets/colors';
-import useSetupPlayer from '../../hooks/useSetupPlayer';
+import usePlayingAlbum from '../../hooks/spotify/usePLayingAlbum';
 import {
   addToWishlist,
   setAudioPlaying,
@@ -46,6 +45,8 @@ const PlaylistItem = props => {
     dispatchRedux(setModalSearchVisible(data));
   };
 
+  const {PlayingAlbum, dispatchPlayingAlbum} = usePlayingAlbum();
+
   return (
     <SafeAreaView>
       <TouchableOpacity
@@ -56,6 +57,7 @@ const PlaylistItem = props => {
           dispatchIsShowModalPlayer(true);
           dispatchAudioPlaying(item);
           dispatchPlayPlaylist({name: '', type: false});
+          dispatchPlayingAlbum([]);
         }}>
         <View style={tw`flex-row items-center`}>
           <Image source={item.artwork} style={tw`h-16 w-16 rounded-md mr-3`} />

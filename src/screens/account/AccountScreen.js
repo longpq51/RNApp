@@ -5,9 +5,13 @@ import tw from 'tailwind-react-native-classnames';
 import AccountHeader from '../../components/AccountHeader';
 import AccountItem from '../../components/AccountItem';
 import Info from '../../components/information/Info';
+import useGetUser from '../../hooks/spotify/user/useGetUser';
 
 const AccountScreen = props => {
   const navigation = useNavigation();
+
+  const info = useGetUser();
+  console.log(info);
 
   return (
     <SafeAreaView>

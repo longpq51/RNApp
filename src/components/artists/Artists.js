@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import {FlatList, View} from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import useGetArtists from '../../hooks/spotify/useGetArtists';

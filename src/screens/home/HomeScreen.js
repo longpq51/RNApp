@@ -21,6 +21,7 @@ import {useSelector} from 'react-redux';
 import {isShowMiniPlayerSelector} from '../../store/selectors';
 import Playlist from '../../components/playlist/Playlist';
 import useGetArtists from '../../hooks/spotify/useGetArtists';
+import ImageSlider from '../../components/ImageSlider';
 
 const HomeScreen = props => {
   const [searchValue, setSearchValue] = useState('');
@@ -46,6 +47,8 @@ const HomeScreen = props => {
         </View>
       </View>
       <ScrollView>
+        {/* <ImageSlider /> */}
+
         <Artists artists={artists} title="Nghệ sĩ nổi bật" />
 
         <Albums albumsList={albumsList} title="Album nổi bật" />

@@ -1,8 +1,10 @@
 import {
   faCheckCircle,
+  faCircleXmark,
   faClose,
   faEye,
   faEyeSlash,
+  faPlugCircleXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {useEffect} from 'react';
@@ -22,6 +24,7 @@ import useShowPassword from '../hooks/useShowPassword';
 import useValidateEmail from '../hooks/validate/useValidateEmail';
 import useValidatePassword from '../hooks/validate/useValidatePassword';
 import {showPasswordSelector} from '../store/selectors';
+import CloseBtn from './buttons/CloseBtn';
 
 const InputItem = props => {
   const {placeholder, value, setValue, setSearchList, setSearchArtistList, fn} =
@@ -35,19 +38,21 @@ const InputItem = props => {
       ? useValidateEmail(value)
       : placeholder === 'Mật khẩu' && useValidatePassword(value);
 
-  // const searchList = useSearch(value);
-  // const searchArtistList = useSearchArtist(value);
-
   return (
     <SafeAreaView>
       <View>
+        {value.length > 0 && placeholder === 'Nhập từ khoá tìm kiếm...' && (
+          <TouchableOpacity
+            style={tw`absolute z-10 right-3 top-8`}
+            onPress={() => setValue('')}>
+            <FontAwesomeIcon icon={faCircleXmark} size={20} />
+          </TouchableOpacity>
+        )}
         <TextInput
           value={value}
           onChangeText={e => {
             setValue(e);
             if (placeholder === 'Nhập từ khoá tìm kiếm...') {
-              // setSearchList(searchList);
-              // setSearchArtistList(searchArtistList);
               fn(value);
             }
           }}

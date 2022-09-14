@@ -11,3 +11,4 @@ export const playPlaylistSelector = state => state.playPlaylist;
 export const audioSelector = state => state.audio;
 export const wishlistSelector = state => state.wishlist;
 export const albumSelector = state => state.album;
+export const wishlistAlbumSelector = state => state.wishlistAlbum;

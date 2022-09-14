@@ -8,28 +8,28 @@ import {useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../../assets/colors';
 import BtnUI from '../../components/BtnUI';
-import AddAudioBtn from '../../components/buttons/AddAudioBtn';
 import GoBackBtn from '../../components/buttons/GobackBtn';
 import ShareBtn from '../../components/buttons/ShareBtn';
 import WishlistBtn from '../../components/buttons/WishlistBtn';
-import PlaylistItem from '../../components/playlist/PlaylistItem';
 import PlaylistSpotifyItem from '../../components/playlist/PlaylistSpotifyItem';
 import Title from '../../components/Title';
 import usePlayPlaylist from '../../hooks/playlist/usePlayPlaylist';
 import useGetAlbumById from '../../hooks/spotify/useGetAlbumById';
+import usePlayingAlbum from '../../hooks/spotify/usePLayingAlbum';
+import useAudio from '../../hooks/useAudio';
 import useConvertObject from '../../hooks/useConvertObject';
 import {isShowMiniPlayerSelector} from '../../store/selectors';
 
 const AlbumScreen = props => {
   const route = useRoute();
   const {item} = route.params;
+  const img = item.images[0].url;
   const artists = item.artists;
   const tracks =
     item.tracks !== undefined ? item.tracks.items : useGetAlbumById(item.id);
-  console.log(tracks);
 
   const fn = useConvertObject();
-  const tracksAfter = tracks.map(item => fn(item));
+  const tracksAfter = tracks.map(i => fn(i, item.images[0].url));
 
   const {
     dispatchPlayPlaylist,
@@ -38,6 +38,7 @@ const AlbumScreen = props => {
   } = usePlayPlaylist();
 
   const isShowMiniPlayer = useSelector(isShowMiniPlayerSelector);
+  const {PlayingAlbum, dispatchPlayingAlbum} = usePlayingAlbum();
 
   return (
     <SafeAreaView style={tw`${!isShowMiniPlayer ? 'h-full' : 'h-5/6'}`}>
@@ -53,7 +54,7 @@ const AlbumScreen = props => {
             <View style={tw`w-2/3 items-center`}>
               <Title title={item.name} size="text-xl" />
             </View>
-            <View style={tw`flex-row justify-center w-1/2 justify-center`}>
+            <View style={tw`flex-row justify-center w-1/2 items-center`}>
               <Text style={tw`capitalize`}>{item.album_type}</Text>
               <FontAwesomeIcon icon={faCircleDot} style={tw`mx-2`} />
               <View>
@@ -74,10 +75,10 @@ const AlbumScreen = props => {
               onPress={() => {
                 dispatchAudioPlaying(tracksAfter);
                 dispatchIsShowModalPlayer(true);
-                dispatchPlayPlaylist({name: '', type: true});
+                dispatchPlayingAlbum(tracksAfter);
               }}
             />
-            <WishlistBtn />
+            <WishlistBtn type="album" item={item} />
           </View>
 
           <View style={tw`flex-row justify-between mx-3 mb-3`}>
@@ -88,7 +89,7 @@ const AlbumScreen = props => {
             data={tracks}
             keyExtractor={key => key.id}
             renderItem={({item, index}) => (
-              <PlaylistSpotifyItem item={item} index={index + 1} />
+              <PlaylistSpotifyItem item={item} index={index + 1} img={img} />
             )}
           />
         </View>

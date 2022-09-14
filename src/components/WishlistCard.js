@@ -2,6 +2,7 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
+import usePlayingAlbum from '../hooks/spotify/usePLayingAlbum';
 import {
   deleteFromWishlist,
   setAudioPlaying,
@@ -30,12 +31,15 @@ const WishlistCard = props => {
     dispatchRedux(deleteFromWishlist(data));
   };
 
+  const {PlayingAlbum, dispatchPlayingAlbum} = usePlayingAlbum();
+
   return (
     <TouchableOpacity
       style={tw`w-1/2`}
       onPress={() => {
         dispatchIsShowModalPlayer(true);
         dispatchAudioPlaying(item);
+        dispatchPlayingAlbum([]);
         dispatchPlayPlaylist({name: '', type: false});
       }}>
       <View style={tw`bg-${colors.textColor} m-2 rounded-md shadow-md`}>

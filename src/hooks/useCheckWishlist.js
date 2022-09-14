@@ -1,9 +1,11 @@
 import {useSelector} from 'react-redux';
-import {wishlistSelector} from '../store/selectors';
+import {wishlistAlbumSelector, wishlistSelector} from '../store/selectors';
 
 const useCheckWishlist = item => {
-  console.log(item);
-  const wishlist = useSelector(wishlistSelector);
+  const wishlist =
+    item.type !== undefined
+      ? useSelector(wishlistAlbumSelector)
+      : useSelector(wishlistSelector);
   return wishlist.find(i => i.id === item.id);
 };
 

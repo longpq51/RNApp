@@ -16,3 +16,5 @@ export const SET_AUDIO = 'set_audio';
 export const ADD_TO_WISHLIST = 'add_to_wishlist';
 export const DELETE_FROM_WISHLIST = 'dellete_from_wishlist';
 export const SET_ALBUM = 'set_album';
+export const ADD_WISHLIST_ALBUM = 'add_wishlist_album';
+export const DELETE_WISHLIST_ALBUM = 'delete_wishlist_album';

@@ -3,9 +3,11 @@ import {
   ADD_PLAYLIST,
   ADD_TO_PLAYLIST,
   ADD_TO_WISHLIST,
+  ADD_WISHLIST_ALBUM,
   DELETE_FROM_PLAYLIST,
   DELETE_FROM_WISHLIST,
   DELETE_PLAYLIST,
+  DELETE_WISHLIST_ALBUM,
   SET_ALBUM,
   SET_AUDIO,
   SET_AUDIO_PLAYING,
@@ -17,7 +19,6 @@ import {
   SET_REPEAT,
   SET_SHOW_PASSWORD,
   SET_SPIN_VALUE,
-  SET_UPDATE,
   SET_USER_INFO,
 } from './constains';
 
@@ -42,6 +43,7 @@ const initialState = {
   audio: {},
   wishlist: [],
   album: [],
+  wishlistAlbum: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -169,6 +171,18 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         album: action.payload,
+      };
+    case ADD_WISHLIST_ALBUM:
+      return {
+        ...state,
+        wishlistAlbum: [...state.wishlistAlbum, action.payload],
+      };
+    case DELETE_WISHLIST_ALBUM:
+      return {
+        ...state,
+        wishlistAlbum: state.wishlistAlbum.filter(
+          item => item.id !== action.payload.id,
+        ),
       };
     default:
       return state;

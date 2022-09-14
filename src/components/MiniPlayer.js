@@ -12,6 +12,7 @@ import TrackPlayer from 'react-native-track-player';
 import {useDispatch, useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {colors} from '../assets/colors';
+import usePlayingAlbum from '../hooks/spotify/usePLayingAlbum';
 import useAudio from '../hooks/useAudio';
 import useRotateAnimated from '../hooks/useRotateAnimated';
 import {setIsShowModalPlayer} from '../store/actions';
@@ -32,9 +33,12 @@ const MiniPlayer = props => {
   const playPlaylist = useSelector(playPlaylistSelector);
   const {spin, start, stop} = useRotateAnimated();
 
+  const {PlayingAlbum, dispatchPlayingAlbum} = usePlayingAlbum();
+
   const {audio, dispatchAudio} = useAudio();
   const audioPlaying = useSelector(audioPlayingSelector);
-  const item = playPlaylist.type ? audio : audioPlaying;
+  const item =
+    playPlaylist.type || PlayingAlbum.length !== 0 ? audio : audioPlaying;
   const dispatchRedux = useDispatch();
   const dispatchIsShowModalPlayer = data => {
     dispatchRedux(setIsShowModalPlayer(data));

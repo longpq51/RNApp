@@ -1,12 +1,12 @@
 const useConvertObject = () => {
-  const fn = item => {
+  const fn = (item, img) => {
     return {
       id: item.id,
       title: item.name,
       artist: item.artists,
       duration: item.duration_ms,
       url: item.preview_url,
-      artwork: require('../../data/artworks/getlucky.png'),
+      artwork: {uri: img},
     };
   };
 

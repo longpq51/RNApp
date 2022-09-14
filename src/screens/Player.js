@@ -43,6 +43,7 @@ import usePlayPlaylist from '../hooks/playlist/usePlayPlaylist';
 import useGetAudioList from '../hooks/playlist/useGetAudioList';
 import PlaylistModal from '../components/PlaylistModal';
 import useAudio from '../hooks/useAudio';
+import usePlayingAlbum from '../hooks/spotify/usePLayingAlbum';
 
 const Player = props => {
   const playbackState = usePlaybackState();
@@ -62,15 +63,32 @@ const Player = props => {
   const audioPlaying = useSelector(audioPlayingSelector);
   const {audio, dispatchAudio} = useAudio();
 
-  const item = playPlaylist.type ? audio : audioPlaying;
+  const {PlayingAlbum, dispatchPlayingAlbum} = usePlayingAlbum();
+  const item =
+    playPlaylist.type || PlayingAlbum.length !== 0 ? audio : audioPlaying;
 
   useEffect(() => {
     const player = async () => {
-      await setup(playPlaylist.type ? audioList : item);
+      await setup(
+        playPlaylist.type
+          ? audioList
+          : PlayingAlbum.length !== 0
+          ? PlayingAlbum
+          : item,
+      );
       await TrackPlayer.play();
       playPlaylist.type &&
         (await TrackPlayer.getCurrentTrack().then(res =>
-          TrackPlayer.getTrack(res).then(i => dispatchAudio(i)),
+          TrackPlayer.getTrack(res).then(i => {
+            dispatchAudio(i);
+          }),
+        ));
+
+      PlayingAlbum.length !== 0 &&
+        (await TrackPlayer.getCurrentTrack().then(res =>
+          TrackPlayer.getTrack(res).then(i => {
+            dispatchAudio(i);
+          }),
         ));
     };
     player();
@@ -129,25 +147,27 @@ const Player = props => {
           </View>
         </View>
 
-        {playPlaylist.type && (
-          <View style={tw`w-full`}>
-            <TouchableOpacity
-              onPress={() => setIsShowPlaylistModal(true)}
-              style={tw`p-3 flex-row items-center self-end`}>
-              <FontAwesomeIcon
-                icon={faList}
-                style={tw`text-${colors.primary}`}
+        {playPlaylist.type ||
+          (PlayingAlbum.length !== 0 && (
+            <View style={tw`w-full`}>
+              <TouchableOpacity
+                onPress={() => setIsShowPlaylistModal(true)}
+                style={tw`p-3 flex-row items-center self-end`}>
+                <FontAwesomeIcon
+                  icon={faList}
+                  style={tw`text-${colors.primary}`}
+                />
+                <Text style={tw`font-bold ml-3 text-${colors.primary}`}>
+                  Danh sách bài hát
+                </Text>
+              </TouchableOpacity>
+              <PlaylistModal
+                i={item}
+                isShowPlaylistModal={isShowPlaylistModal}
+                setIsShowPlaylistModal={setIsShowPlaylistModal}
               />
-              <Text style={tw`font-bold ml-3 text-${colors.primary}`}>
-                Danh sách bài hát
-              </Text>
-            </TouchableOpacity>
-            <PlaylistModal
-              isShowPlaylistModal={isShowPlaylistModal}
-              setIsShowPlaylistModal={setIsShowPlaylistModal}
-            />
-          </View>
-        )}
+            </View>
+          ))}
       </SafeAreaView>
     </Modal>
   );

@@ -75,7 +75,7 @@ const ModalSearch = props => {
           {searchData.data !== undefined ? (
             <SearchRes searchData={searchData} value={value} fn={fn} />
           ) : (
-            <View>
+            <View style={tw`h-96 items-center justify-center`}>
               <Text>Không có kết quả nào</Text>
             </View>
           )}

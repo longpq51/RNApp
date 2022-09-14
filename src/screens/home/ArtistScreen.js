@@ -53,7 +53,11 @@ const ArtistScreen = props => {
             data={topTracks}
             keyExtractor={key => key.id}
             renderItem={({item, index}) => (
-              <PlaylistSpotifyItem item={item} index={index + 1} />
+              <PlaylistSpotifyItem
+                item={item}
+                index={index + 1}
+                img={artist.images[0].url}
+              />
             )}
           />
         </View>
