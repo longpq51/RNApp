@@ -1,4 +1,5 @@
 import {Animated} from 'react-native';
+import {images} from '../assets/images';
 import {
   ADD_PLAYLIST,
   ADD_TO_PLAYLIST,
@@ -28,7 +29,9 @@ const initialState = {
   userInfo: {
     name: 'Longpq',
     email: 'longpq@comartek.com',
+    phone: '0942559573',
     dob: '05/01/2001',
+    avatar: images.accDefault,
   },
   repeat: false,
   isShowMiniPlayer: false,

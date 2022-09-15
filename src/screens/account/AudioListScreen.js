@@ -34,6 +34,7 @@ const AudioListScreen = props => {
   } = usePlayPlaylist();
 
   const audioList = useGetAudioList(name);
+  console.log(audioList);
 
   return (
     <SafeAreaView>

@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {StackActions, useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
 import {
   Image,
@@ -60,7 +60,7 @@ const Login = props => {
             text="Đăng nhập"
             onPress={() => {
               if (validateEmail && validatePassword) {
-                navigation.navigate('Tabbar');
+                navigation.dispatch(StackActions.replace('Tabbar'));
                 getToken();
               } else
                 Toast.show({

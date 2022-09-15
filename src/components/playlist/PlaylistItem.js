@@ -18,6 +18,7 @@ import {
   setPlayPlaylist,
 } from '../../store/actions';
 import WishlistBtn from '../buttons/WishlistBtn';
+import ArtistList from './ArtistList';
 
 const PlaylistItem = props => {
   const {data, modalVisible, type} = props;
@@ -28,6 +29,7 @@ const PlaylistItem = props => {
         : data.item
       : data;
 
+  console.log(item);
   const dispatchRedux = useDispatch();
   const dispatchIsShowModalPlayer = data => {
     dispatchRedux(setIsShowModalPlayer(data));
@@ -60,16 +62,27 @@ const PlaylistItem = props => {
           dispatchPlayingAlbum([]);
         }}>
         <View style={tw`flex-row items-center`}>
-          <Image source={item.artwork} style={tw`h-16 w-16 rounded-md mr-3`} />
-          <View style={tw`w-44`}>
+          <Image
+            source={
+              item.artwork.uri !== undefined
+                ? item.artwork
+                : Array.isArray(item.artist)
+                ? require('../../assets/logo.png')
+                : item.artwork
+            }
+            style={tw`h-16 w-16 rounded-md mr-3`}
+          />
+          <View style={tw`w-44 justify-center`}>
             <Text
               style={tw`font-bold text-lg text-${colors.primary}`}
               numberOfLines={1}>
               {item.title}
             </Text>
-            <Text style={tw`text-xs`} numberOfLines={1}>
-              {item.artist}
-            </Text>
+            {Array.isArray(item.artist) ? (
+              <ArtistList data={item.artist} />
+            ) : (
+              <Text numberOfLines={1}>{item.artist}</Text>
+            )}
           </View>
         </View>
 

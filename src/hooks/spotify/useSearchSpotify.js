@@ -6,7 +6,7 @@ const useSearchSpotify = () => {
   const [searchData, setSearchData] = useState([]);
   const [token, setToken] = useState('');
 
-  const fn = async searchText => {
+  const search = async searchText => {
     const options = {
       method: 'GET',
       headers: {
@@ -29,7 +29,7 @@ const useSearchSpotify = () => {
 
   return {
     searchData,
-    fn,
+    search,
   };
 };
 

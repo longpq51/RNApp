@@ -22,6 +22,7 @@ import {isShowMiniPlayerSelector} from '../../store/selectors';
 import Playlist from '../../components/playlist/Playlist';
 import useGetArtists from '../../hooks/spotify/useGetArtists';
 import ImageSlider from '../../components/ImageSlider';
+import useUserInfo from '../../hooks/useUserInfo';
 
 const HomeScreen = props => {
   const [searchValue, setSearchValue] = useState('');
@@ -29,6 +30,7 @@ const HomeScreen = props => {
   const {albumsList} = useGetAlbums();
   const artists = useGetArtists();
   const isShowMiniPlayer = useSelector(isShowMiniPlayerSelector);
+  const {userInfo, dispatchSetUserInfo} = useUserInfo();
 
   return (
     <SafeAreaView style={tw`${!isShowMiniPlayer ? 'h-full' : 'h-5/6'}`}>
@@ -38,7 +40,7 @@ const HomeScreen = props => {
           <Image
             style={tw`h-14 w-14 rounded-full ml-2`}
             source={{
-              uri: images.accDefault,
+              uri: userInfo.avatar,
             }}
           />
         </TouchableOpacity>

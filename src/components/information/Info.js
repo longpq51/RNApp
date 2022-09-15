@@ -12,6 +12,7 @@ const Info = props => {
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [dob, setDob] = useState('');
 
   const [date, setDate] = useState(new Date());
@@ -21,6 +22,7 @@ const Info = props => {
     setName(userInfo.name);
     setEmail(userInfo.email);
     setDob(userInfo.dob);
+    setPhone(userInfo.phone);
   }, []);
 
   return (
@@ -30,6 +32,7 @@ const Info = props => {
       </Text>
       <InputItem value={name} setValue={setName} />
       <InputItem value={email} setValue={setEmail} />
+      <InputItem value={phone} setValue={setPhone} placeholder="phone" />
       <TouchableOpacity
         onPress={() => setOpen(true)}
         style={tw`px-3 p-4 bg-${colors.background} mt-3 rounded-md`}>
@@ -42,7 +45,7 @@ const Info = props => {
         date={date}
         onConfirm={date => {
           setOpen(false);
-          setDob(date.toLocaleDateString('fr-CA'));
+          setDob(date.toLocaleDateString('vi-VN'));
         }}
         onCancel={() => {
           setOpen(false);

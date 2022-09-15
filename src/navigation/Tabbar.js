@@ -1,5 +1,4 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import SettingsScreen from '../screens/SettingsScreen';
 import {
   faHome,
   faClose,
@@ -16,8 +15,9 @@ import AccountNavigator from '../screens/account/AccountNavigator';
 import Player from '../screens/Player';
 import HomeNavigator from '../screens/home/HomeNavigator';
 import {useSelector} from 'react-redux';
-import {wishlistSelector} from '../store/selectors';
+import {wishlistAlbumSelector, wishlistSelector} from '../store/selectors';
 import WishlistNavigator from '../screens/wishlist/WishlistNavigator';
+import SettingsNavigator from '../screens/settings/SettingsNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -54,6 +54,7 @@ const Tabbar = () => {
   });
 
   const wishlist = useSelector(wishlistSelector);
+  const wishlistAlbum = useSelector(wishlistAlbumSelector);
 
   return (
     <View style={tw`flex-1`}>
@@ -64,7 +65,10 @@ const Tabbar = () => {
           name="Yêu thích"
           component={WishlistNavigator}
           options={{
-            tabBarBadge: wishlist.length !== 0 ? wishlist.length : undefined,
+            tabBarBadge:
+              wishlist.length !== 0 || wishlistAlbum.length !== 0
+                ? wishlist.length + wishlistAlbum.length
+                : undefined,
             tabBarBadgeStyle: {
               backgroundColor: colors.rgbTextColorPrimary,
               fontSize: 10,
@@ -73,7 +77,7 @@ const Tabbar = () => {
           }}
         />
         <Tab.Screen name="Tài khoản" component={AccountNavigator} />
-        <Tab.Screen name="Cài đặt" component={SettingsScreen} />
+        <Tab.Screen name="Cài đặt" component={SettingsNavigator} />
       </Tab.Navigator>
       <Player />
     </View>

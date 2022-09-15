@@ -1,6 +1,5 @@
 import {useEffect} from 'react';
 import {Text, View} from 'react-native';
-import {SliderBox} from 'react-native-image-slider-box';
 import useGetAlbums from '../hooks/spotify/useGetAlbums';
 
 const ImageSlider = () => {
@@ -15,12 +14,7 @@ const ImageSlider = () => {
       albumList.map(item => images.push(item.images[0].url));
   }, []);
 
-  return (
-    <View>
-      <SliderBox images={images} />
-      {/* <Text>Slider</Text> */}
-    </View>
-  );
+  return <View></View>;
 };
 
 export default ImageSlider;

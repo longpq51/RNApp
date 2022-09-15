@@ -36,7 +36,7 @@ const ModalSearch = props => {
     dispatchRedux(setModalSearchVisible(data));
   };
 
-  const {searchData, fn} = useSearchSpotify();
+  const {searchData, search} = useSearchSpotify();
 
   return (
     <Modal
@@ -48,10 +48,10 @@ const ModalSearch = props => {
         setModalVisible(!modalSearchVisible);
       }}>
       <SafeAreaView style={tw`bg-gray-100 flex-1 w-full`}>
-        <View style={tw`flex flex-row items-center mx-2`}>
+        <View style={tw`flex flex-row items-center mx-2 mb-2`}>
           <View style={tw`flex-1`}>
             <InputItem
-              fn={fn}
+              fn={search}
               placeholder="Nhập từ khoá tìm kiếm..."
               value={value}
               setValue={setValue}
@@ -73,7 +73,7 @@ const ModalSearch = props => {
           </Text>
 
           {searchData.data !== undefined ? (
-            <SearchRes searchData={searchData} value={value} fn={fn} />
+            <SearchRes searchData={searchData} value={value} fn={search} />
           ) : (
             <View style={tw`h-96 items-center justify-center`}>
               <Text>Không có kết quả nào</Text>

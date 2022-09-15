@@ -18,6 +18,10 @@ import CloseBtn from './CloseBtn';
 import {colors} from '../../assets/colors';
 import useIsChoose from '../../hooks/playlist/useIsChoose';
 import useDeleteFromPlaylist from '../../hooks/playlist/useDeleteFromPlaylist';
+import InputItem from '../InputItem';
+import useSearchSpotify from '../../hooks/spotify/useSearchSpotify';
+import PlaylistSpotifyItem from '../playlist/PlaylistSpotifyItem';
+import useConvertObject from '../../hooks/useConvertObject';
 
 const AddAudioBtn = props => {
   const {name} = props;
@@ -25,6 +29,11 @@ const AddAudioBtn = props => {
   const {audioList, dispatchAddToPlaylist} = useAddToPlaylist(name);
   const {dispatchDeleteFromPlaylist} = useDeleteFromPlaylist();
   const check = useIsChoose(audioList);
+
+  const [searchText, setSearchText] = useState('');
+
+  const {searchData, search} = useSearchSpotify();
+  const fn = useConvertObject();
 
   return (
     <View>
@@ -37,38 +46,53 @@ const AddAudioBtn = props => {
         <Text style={tw`text-xs`}>Thêm bài</Text>
       </TouchableOpacity>
       <Modal animationType="slide" transparent={true} visible={isShowModal}>
-        <SafeAreaView style={tw`bg-white`}>
+        <SafeAreaView style={tw`bg-white h-full p-2`}>
           <CloseBtn onPress={() => setIsShowModal(false)} />
-          <FlatList
-            data={tracks}
-            keyExtractor={key => key.id}
-            renderItem={item => (
-              <View style={tw`flex-row items-center justify-between w-full`}>
-                <PlaylistItem data={item} />
 
-                {check(item.item) === undefined && (
-                  <TouchableOpacity
-                    onPress={() => {
-                      dispatchAddToPlaylist({
-                        namePlaylist: name,
-                        data: item.item,
-                      });
-                      check(item.item) !== undefined &&
-                        dispatchDeleteFromPlaylist({
+          <View style={tw`mb-2`}>
+            <InputItem
+              fn={search}
+              placeholder="Nhập từ khoá tìm kiếm..."
+              value={searchText}
+              setValue={setSearchText}
+            />
+          </View>
+
+          {searchData.data !== undefined && (
+            <FlatList
+              data={searchData.data.tracks.items}
+              keyExtractor={key => key.id}
+              renderItem={item => (
+                <View style={tw`items-center justify-between`}>
+                  {/* <PlaylistItem data={fn(item.item)} type="" /> */}
+                  <PlaylistSpotifyItem
+                    item={item.item}
+                    index={item.index + 1}
+                  />
+                  {check(item.item) === undefined && (
+                    <TouchableOpacity
+                      onPress={() => {
+                        dispatchAddToPlaylist({
                           namePlaylist: name,
-                          data: item.item,
+                          data: fn(item.item),
                         });
-                    }}
-                    style={tw`border border-2 border-${colors.primary} p-3 mr-3 rounded-full`}>
-                    <FontAwesomeIcon
-                      icon={faAdd}
-                      style={tw`text-${colors.primary}`}
-                    />
-                  </TouchableOpacity>
-                )}
-              </View>
-            )}
-          />
+                        check(item.item) !== undefined &&
+                          dispatchDeleteFromPlaylist({
+                            namePlaylist: name,
+                            data: fn(item.item),
+                          });
+                      }}
+                      style={tw`border border-2 border-${colors.primary} p-3 mr-3 rounded-full`}>
+                      <FontAwesomeIcon
+                        icon={faAdd}
+                        style={tw`text-${colors.primary}`}
+                      />
+                    </TouchableOpacity>
+                  )}
+                </View>
+              )}
+            />
+          )}
         </SafeAreaView>
       </Modal>
     </View>

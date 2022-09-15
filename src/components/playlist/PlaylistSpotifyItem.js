@@ -54,7 +54,7 @@ const PlaylistSpotifyItem = props => {
       <View style={tw`px-3 py-2 bg-white mr-3 rounded-full`}>
         <Text>{index}</Text>
       </View>
-      <View style={tw`w-64`}>
+      <View style={tw`w-44`}>
         <Title title={item.name !== undefined ? item.name : item.title} />
         <ArtistList data={artists} />
       </View>

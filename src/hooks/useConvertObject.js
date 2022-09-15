@@ -6,7 +6,7 @@ const useConvertObject = () => {
       artist: item.artists,
       duration: item.duration_ms,
       url: item.preview_url,
-      artwork: {uri: img},
+      artwork: img !== undefined ? {uri: img} : require('../assets/logo.png'),
     };
   };
 

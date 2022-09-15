@@ -27,8 +27,7 @@ import {showPasswordSelector} from '../store/selectors';
 import CloseBtn from './buttons/CloseBtn';
 
 const InputItem = props => {
-  const {placeholder, value, setValue, setSearchList, setSearchArtistList, fn} =
-    props;
+  const {placeholder, value, setValue, fn} = props;
 
   const showPassword = useShowPassword();
   const isShowPassword = useSelector(showPasswordSelector);
@@ -49,6 +48,7 @@ const InputItem = props => {
           </TouchableOpacity>
         )}
         <TextInput
+          keyboardType={placeholder === 'phone' ? 'number-pad' : 'default'}
           value={value}
           onChangeText={e => {
             setValue(e);
@@ -72,6 +72,7 @@ const InputItem = props => {
       </View>
 
       {value.length > 0 &&
+      placeholder !== 'phone' &&
       placeholder !== 'Nhập từ khoá tìm kiếm...' &&
       placeholder !== undefined &&
       placeholder !== 'Tên Playlist' ? (

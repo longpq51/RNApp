@@ -11,6 +11,7 @@ import BtnUI from '../../components/BtnUI';
 import GoBackBtn from '../../components/buttons/GobackBtn';
 import ShareBtn from '../../components/buttons/ShareBtn';
 import WishlistBtn from '../../components/buttons/WishlistBtn';
+import ArtistList from '../../components/playlist/ArtistList';
 import PlaylistSpotifyItem from '../../components/playlist/PlaylistSpotifyItem';
 import Title from '../../components/Title';
 import usePlayPlaylist from '../../hooks/playlist/usePlayPlaylist';
@@ -54,16 +55,11 @@ const AlbumScreen = props => {
             <View style={tw`w-2/3 items-center`}>
               <Title title={item.name} size="text-xl" />
             </View>
-            <View style={tw`flex-row justify-center w-1/2 items-center`}>
+            <View style={tw`flex-row justify-center w-3/4 items-center`}>
               <Text style={tw`capitalize`}>{item.album_type}</Text>
               <FontAwesomeIcon icon={faCircleDot} style={tw`mx-2`} />
               <View>
-                <FlatList
-                  horizontal
-                  data={artists}
-                  keyExtractor={key => key.id}
-                  renderItem={item => <Text>{item.item.name}</Text>}
-                />
+                <ArtistList data={artists} />
               </View>
             </View>
           </View>

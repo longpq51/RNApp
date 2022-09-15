@@ -6,6 +6,7 @@ const ArtistList = props => {
 
   return (
     <FlatList
+      showsHorizontalScrollIndicator={false}
       horizontal
       data={data}
       keyExtractor={key => key.id}
