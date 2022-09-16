@@ -10,9 +10,12 @@ const PlaylistCard = props => {
 
   return (
     <TouchableOpacity
-      style={tw`bg-${colors.background} m-2 rounded-md`}
+      style={tw`bg-${colors.background} m-2 rounded-md p-3`}
       onPress={() => navigation.navigate('AudioList', {name: name})}>
-      <Text style={tw`font-bold m-3 text-${colors.primary}`}>{name}</Text>
+      <Text style={tw`font-bold text-${colors.primary} text-lg`}>{name}</Text>
+      <Text style={tw`text-xs`}>
+        Tạo bởi <Text style={tw`text-${colors.primary}`}>longpq</Text>
+      </Text>
     </TouchableOpacity>
   );
 };

@@ -16,6 +16,8 @@ import useValidateEmail from '../hooks/validate/useValidateEmail';
 import useValidatePassword from '../hooks/validate/useValidatePassword';
 import Toast from 'react-native-toast-message';
 import useGetToken from '../hooks/spotify/useGetToken';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import TouchIdBtn from '../components/buttons/TouchIdBtn';
 
 const Login = props => {
   const navigation = useNavigation();
@@ -49,11 +51,14 @@ const Login = props => {
           />
         </View>
 
-        <TouchableOpacity
-          style={tw`self-end mr-5 mb-5`}
-          onPress={() => navigation.navigate('ForgetPassword')}>
-          <Text style={tw`text-${colors.primary}`}>Quên mật khẩu?</Text>
-        </TouchableOpacity>
+        <View style={tw`flex-row mb-5 items-center justify-between mx-3`}>
+          <TouchIdBtn />
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ForgetPassword')}>
+            <Text style={tw`text-${colors.primary}`}>Quên mật khẩu?</Text>
+          </TouchableOpacity>
+        </View>
 
         <View style={tw`mt-10 m-2`}>
           <BtnUI
@@ -62,6 +67,7 @@ const Login = props => {
               if (validateEmail && validatePassword) {
                 navigation.dispatch(StackActions.replace('Tabbar'));
                 getToken();
+                AsyncStorage.getItem('token').then(res => console.log(res));
               } else
                 Toast.show({
                   type: 'error',

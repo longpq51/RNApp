@@ -22,6 +22,7 @@ import useDeleteFromPlaylist from '../../hooks/playlist/useDeleteFromPlaylist';
 import usePlayPlaylist from '../../hooks/playlist/usePlayPlaylist';
 import useGetAudioList from '../../hooks/playlist/useGetAudioList';
 import useSetupPlayer from '../../hooks/useSetupPlayer';
+import TrackPlayer from 'react-native-track-player';
 
 const AudioListScreen = props => {
   const route = useRoute();
@@ -76,6 +77,7 @@ const AudioListScreen = props => {
                         namePlaylist: name,
                         data: data.item,
                       });
+                      // TrackPlayer.remove([data.item]);
                     }}
                     style={tw`mr-3 bg-red-400 w-16 my-3 items-center justify-center h-3/4 rounded-full`}>
                     <FontAwesomeIcon icon={faTrash} size={20} />

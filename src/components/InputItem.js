@@ -24,7 +24,6 @@ import useShowPassword from '../hooks/useShowPassword';
 import useValidateEmail from '../hooks/validate/useValidateEmail';
 import useValidatePassword from '../hooks/validate/useValidatePassword';
 import {showPasswordSelector} from '../store/selectors';
-import CloseBtn from './buttons/CloseBtn';
 
 const InputItem = props => {
   const {placeholder, value, setValue, fn} = props;

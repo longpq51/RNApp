@@ -3,6 +3,7 @@ import {SafeAreaView, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import {isShowMiniPlayerSelector} from '../../store/selectors';
+import InfoAppScreen from './InfoAppScreen';
 import PrivacyScreen from './PrivacyScreen';
 import SettingsScreen from './SettingsScreen';
 import TermOfUseScreen from './TermOfUseScreen';
@@ -25,6 +26,7 @@ const SettingsNavigator = () => {
           <Stack.Screen name="Settings" component={SettingsScreen} />
           <Stack.Screen name="Privacy" component={PrivacyScreen} />
           <Stack.Screen name="TermOfUse" component={TermOfUseScreen} />
+          <Stack.Screen name="InfoApp" component={InfoAppScreen} />
         </Stack.Navigator>
       </View>
     </SafeAreaView>

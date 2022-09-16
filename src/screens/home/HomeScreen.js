@@ -23,6 +23,7 @@ import Playlist from '../../components/playlist/Playlist';
 import useGetArtists from '../../hooks/spotify/useGetArtists';
 import ImageSlider from '../../components/ImageSlider';
 import useUserInfo from '../../hooks/useUserInfo';
+import Title from '../../components/Title';
 
 const HomeScreen = props => {
   const [searchValue, setSearchValue] = useState('');
@@ -55,6 +56,9 @@ const HomeScreen = props => {
 
         <Albums albumsList={albumsList} title="Album nổi bật" />
 
+        <View style={tw`m-3`}>
+          <Title title="Nhạc độc quyền" />
+        </View>
         <Playlist />
       </ScrollView>
     </SafeAreaView>

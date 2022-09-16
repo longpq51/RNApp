@@ -60,22 +60,22 @@ const ControlPlaylistScreen = () => {
             <BtnUI
               text="Tạo Playlist"
               onPress={() => {
-                // if (validatePlaylistName !== undefined) {
-                //   Toast.show({
-                //     type: 'error',
-                //     text1: 'Tên playlist đã tồn tại',
-                //     text2: 'Hãy chọn 1 tên playlist khác nhé! 👋',
-                //   });
-                // } else {
-                //   setIsShowModal(false);
-                //   dispatchAddPlaylist({name: playlistName, data: []});
-                //   dispatchPlayPlaylist({name: playlistName, type: false});
-                //   setPlaylistName('');
-                // }
-                setIsShowModal(false);
-                dispatchAddPlaylist({name: playlistName, data: []});
-                dispatchPlayPlaylist({name: playlistName, type: false});
-                setPlaylistName('');
+                if (validatePlaylistName !== undefined) {
+                  Toast.show({
+                    type: 'error',
+                    text1: 'Tên playlist đã tồn tại',
+                    text2: 'Hãy chọn 1 tên playlist khác nhé! 👋',
+                  });
+                } else {
+                  setIsShowModal(false);
+                  dispatchAddPlaylist({name: playlistName, data: []});
+                  dispatchPlayPlaylist({name: playlistName, type: false});
+                  setPlaylistName('');
+                }
+                // setIsShowModal(false);
+                // dispatchAddPlaylist({name: playlistName, data: []});
+                // dispatchPlayPlaylist({name: playlistName, type: false});
+                // setPlaylistName('');
               }}
             />
           </View>
@@ -94,7 +94,7 @@ const ControlPlaylistScreen = () => {
           renderItem={item => <PlaylistCard item={item} />}
           rightOpenValue={-50}
           renderHiddenItem={(data, rowMap) => (
-            <View style={tw`w-full items-end h-full justify-center p-5`}>
+            <View style={tw`w-full items-end justify-center p-5`}>
               <TrashBtn onPress={() => dispatchDeletePlaylist(data.item)} />
             </View>
           )}

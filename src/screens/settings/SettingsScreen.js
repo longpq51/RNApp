@@ -1,6 +1,8 @@
 import {
   faBook,
+  faFingerprint,
   faInfoCircle,
+  faKey,
   faRightFromBracket,
   faShieldAlt,
 } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +12,7 @@ import {useState} from 'react';
 import {
   Linking,
   SafeAreaView,
+  Switch,
   Text,
   TouchableOpacity,
   View,
@@ -27,9 +30,27 @@ const SettingsScreen = props => {
   const [modalVisible, setModalVisible] = useState(false);
   const isShowMiniPlayer = useSelector(isShowMiniPlayerSelector);
 
+  var [isEnabledLockApp, setIsEnabledLockApp] = useState(true);
+
   return (
     <SafeAreaView style={tw`justify-between h-full`}>
       <View>
+        <View style={tw`flex-row items-center justify-between p-3`}>
+          <View style={tw`flex-row items-center`}>
+            <FontAwesomeIcon icon={faFingerprint} />
+            <Text style={tw`ml-2`}>Mở khoá bằng vân tay</Text>
+          </View>
+          <Switch
+            trackColor={{false: '#767577', true: colors.rgbTextColorPrimary}}
+            thumbColor={isEnabledLockApp ? colors.rgbPrimary : '#767577'}
+            // ios_backgroundColor="#3e3e3e"
+            onValueChange={() => {
+              setIsEnabledLockApp(!isEnabledLockApp);
+            }}
+            value={isEnabledLockApp}
+          />
+        </View>
+
         <SettingItem
           icon={faBook}
           title="Điều khoản sử dụng"
@@ -40,7 +61,16 @@ const SettingsScreen = props => {
           title="Chính sách bảo mật"
           onPress={() => navigation.navigate('Privacy')}
         />
-        <SettingItem icon={faInfoCircle} title="Thông tin ứng dụng" />
+        <SettingItem
+          icon={faInfoCircle}
+          title="Thông tin ứng dụng"
+          onPress={() => navigation.navigate('InfoApp')}
+        />
+        <SettingItem
+          icon={faKey}
+          title="Đổi mật khẩu"
+          onPress={() => navigation.navigate('ForgetPassword')}
+        />
       </View>
       <View>
         <TouchableOpacity

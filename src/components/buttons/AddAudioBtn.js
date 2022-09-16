@@ -63,12 +63,16 @@ const AddAudioBtn = props => {
               data={searchData.data.tracks.items}
               keyExtractor={key => key.id}
               renderItem={item => (
-                <View style={tw`items-center justify-between`}>
-                  {/* <PlaylistItem data={fn(item.item)} type="" /> */}
-                  <PlaylistSpotifyItem
+                <View style={tw`flex-row items-center justify-between`}>
+                  <PlaylistItem
+                    data={fn(item.item)}
+                    type=""
+                    setIsShowModal={setIsShowModal}
+                  />
+                  {/* <PlaylistSpotifyItem
                     item={item.item}
                     index={item.index + 1}
-                  />
+                  /> */}
                   {check(item.item) === undefined && (
                     <TouchableOpacity
                       onPress={() => {

@@ -147,27 +147,27 @@ const Player = props => {
           </View>
         </View>
 
-        {playPlaylist.type ||
-          (PlayingAlbum.length !== 0 && (
-            <View style={tw`w-full`}>
-              <TouchableOpacity
-                onPress={() => setIsShowPlaylistModal(true)}
-                style={tw`p-3 flex-row items-center self-end`}>
-                <FontAwesomeIcon
-                  icon={faList}
-                  style={tw`text-${colors.primary}`}
-                />
-                <Text style={tw`font-bold ml-3 text-${colors.primary}`}>
-                  Danh sách bài hát
-                </Text>
-              </TouchableOpacity>
-              <PlaylistModal
-                i={item}
-                isShowPlaylistModal={isShowPlaylistModal}
-                setIsShowPlaylistModal={setIsShowPlaylistModal}
+        {(playPlaylist.type || PlayingAlbum.length !== 0) && (
+          <View style={tw`w-full`}>
+            <TouchableOpacity
+              onPress={() => setIsShowPlaylistModal(true)}
+              style={tw`p-3 flex-row items-center self-end`}>
+              <FontAwesomeIcon
+                icon={faList}
+                style={tw`text-${colors.primary}`}
               />
-            </View>
-          ))}
+              <Text style={tw`font-bold ml-3 text-${colors.primary}`}>
+                Danh sách bài hát
+              </Text>
+            </TouchableOpacity>
+            <PlaylistModal
+              audio={audio}
+              i={item}
+              isShowPlaylistModal={isShowPlaylistModal}
+              setIsShowPlaylistModal={setIsShowPlaylistModal}
+            />
+          </View>
+        )}
       </SafeAreaView>
     </Modal>
   );

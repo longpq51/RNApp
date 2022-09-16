@@ -21,7 +21,7 @@ import WishlistBtn from '../buttons/WishlistBtn';
 import ArtistList from './ArtistList';
 
 const PlaylistItem = props => {
-  const {data, modalVisible, type} = props;
+  const {data, modalVisible, type, setIsShowModal} = props;
   const item =
     type === undefined
       ? data.item[0] !== undefined
@@ -29,7 +29,6 @@ const PlaylistItem = props => {
         : data.item
       : data;
 
-  console.log(item);
   const dispatchRedux = useDispatch();
   const dispatchIsShowModalPlayer = data => {
     dispatchRedux(setIsShowModalPlayer(data));
@@ -60,6 +59,7 @@ const PlaylistItem = props => {
           dispatchAudioPlaying(item);
           dispatchPlayPlaylist({name: '', type: false});
           dispatchPlayingAlbum([]);
+          // setIsShowModal(false);
         }}>
         <View style={tw`flex-row items-center`}>
           <Image

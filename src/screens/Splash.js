@@ -48,7 +48,7 @@ const Splash = props => {
       <Animated.Text
         style={{
           fontSize: 20,
-          color: colors.primary,
+          color: colors.rgbPrimary,
           fontWeight: 'bold',
           transform: [{translateY: tittleMarginTop}],
         }}>
