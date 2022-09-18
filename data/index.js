@@ -103,13 +103,21 @@ export const tracks = [
     url: require('./sounds/cellosonata.mp3'),
     artwork: require('./artworks/cellosonata.jpg'),
   },
+  {
+    id: '14',
+    title: 'Mộng chiều xuân',
+    artist: 'Thái Hiền',
+    duration: '02:47',
+    url: require('./sounds/MongChieuXuan.mp3'),
+    artwork: require('./artworks/MongChieuXuan.jpg'),
+  },
 ];
 
 export const playlists = [
   {
     id: 1,
     title: 'Pop',
-    items: ['1', '2', '3', '4', '5', '6', '7', '8'],
+    items: ['14', '1', '2', '3', '4', '5', '6', '7', '8'],
   },
   {
     id: 2,

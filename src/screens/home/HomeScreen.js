@@ -24,6 +24,7 @@ import useGetArtists from '../../hooks/spotify/useGetArtists';
 import ImageSlider from '../../components/ImageSlider';
 import useUserInfo from '../../hooks/useUserInfo';
 import Title from '../../components/Title';
+import {colors} from '../../assets/colors';
 
 const HomeScreen = props => {
   const [searchValue, setSearchValue] = useState('');
@@ -38,19 +39,22 @@ const HomeScreen = props => {
       <ModalSearch value={searchValue} setValue={setSearchValue} />
       <View style={tw`flex flex-row items-center`}>
         <TouchableOpacity onPress={() => navigation.navigate('Tài khoản')}>
-          <Image
-            style={tw`h-14 w-14 rounded-full ml-2`}
-            source={{
-              uri: userInfo.avatar,
-            }}
-          />
+          <View
+            style={tw`border-4 border-${colors.textColorPrimary} ml-1 rounded-full`}>
+            <Image
+              style={tw`h-12 w-12 rounded-full`}
+              source={{
+                uri: userInfo.avatar,
+              }}
+            />
+          </View>
         </TouchableOpacity>
         <View style={tw`flex-1`}>
           <Header logo="" icon={[faSearch]} />
         </View>
       </View>
       <ScrollView>
-        {/* <ImageSlider /> */}
+        <ImageSlider />
 
         <Artists artists={artists} title="Nghệ sĩ nổi bật" />
 

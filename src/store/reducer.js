@@ -27,7 +27,7 @@ const initialState = {
   showPassword: false,
   modalSearchVisible: false,
   userInfo: {
-    name: 'Longpq',
+    name: 'longpq@comartek',
     email: 'longpq@comartek.com',
     phone: '0942559573',
     dob: '05/01/2001',
@@ -106,12 +106,15 @@ const rootReducer = (state = initialState, action) => {
             : [...state.playlist[0], action.payload],
       };
     case DELETE_PLAYLIST:
-      console.log(action.payload);
+      console.log({playlist: state.playlist, data: action.payload});
       return {
         ...state,
-        playlist: state.playlist.filter(
-          item => item.name !== action.payload.name,
-        ),
+        playlist:
+          state.playlist[0][0] === undefined
+            ? state.playlist.filter(item => item.name !== action.payload.name)
+            : state.playlist[0].filter(
+                item => item.name !== action.payload.name,
+              ),
       };
     case ADD_TO_PLAYLIST:
       return {

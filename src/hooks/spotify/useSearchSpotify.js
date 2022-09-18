@@ -30,6 +30,7 @@ const useSearchSpotify = () => {
   return {
     searchData,
     search,
+    setSearchData,
   };
 };
 

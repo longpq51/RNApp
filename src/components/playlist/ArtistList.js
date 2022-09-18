@@ -6,6 +6,7 @@ const ArtistList = props => {
 
   return (
     <FlatList
+      contentContainerStyle={tw`items-center`}
       showsHorizontalScrollIndicator={false}
       horizontal
       data={data}

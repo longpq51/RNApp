@@ -32,7 +32,7 @@ const AddAudioBtn = props => {
 
   const [searchText, setSearchText] = useState('');
 
-  const {searchData, search} = useSearchSpotify();
+  const {searchData, search, setSearchData} = useSearchSpotify();
   const fn = useConvertObject();
 
   return (
@@ -51,6 +51,7 @@ const AddAudioBtn = props => {
 
           <View style={tw`mb-2`}>
             <InputItem
+              setSearchData={setSearchData}
               fn={search}
               placeholder="Nhập từ khoá tìm kiếm..."
               value={searchText}
@@ -80,11 +81,11 @@ const AddAudioBtn = props => {
                           namePlaylist: name,
                           data: fn(item.item),
                         });
-                        check(item.item) !== undefined &&
-                          dispatchDeleteFromPlaylist({
-                            namePlaylist: name,
-                            data: fn(item.item),
-                          });
+                        // check(item.item) !== undefined &&
+                        //   dispatchDeleteFromPlaylist({
+                        //     namePlaylist: name,
+                        //     data: fn(item.item),
+                        //   });
                       }}
                       style={tw`border border-2 border-${colors.primary} p-3 mr-3 rounded-full`}>
                       <FontAwesomeIcon

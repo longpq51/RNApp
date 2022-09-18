@@ -1,8 +1,10 @@
 import {faForwardStep} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {useEffect, useState} from 'react';
 import {
   Animated,
   Image,
+  Keyboard,
   Platform,
   Text,
   TouchableOpacity,
@@ -44,8 +46,31 @@ const MiniPlayer = props => {
     dispatchRedux(setIsShowModalPlayer(data));
   };
 
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true); // or some other action
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false); // or some other action
+      },
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
   return (
-    isShowMiniPlayer && (
+    isShowMiniPlayer &&
+    !isKeyboardVisible && (
       <View
         style={tw`absolute z-10 ${
           Platform.OS === 'ios' ? 'bottom-20' : 'bottom-12'

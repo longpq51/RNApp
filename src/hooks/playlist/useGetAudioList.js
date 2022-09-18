@@ -4,6 +4,8 @@ import {playlistSelector} from '../../store/selectors';
 const useGetAudioList = name => {
   const playlist = useSelector(playlistSelector);
 
+  // console.log({name, playlist});
+
   const audioList =
     playlist.length > 0 && name !== ''
       ? playlist[0][0] === undefined

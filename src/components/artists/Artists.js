@@ -9,7 +9,7 @@ const Artists = props => {
   const {artists, title} = props;
 
   return (
-    <View style={tw`m-3`}>
+    <View style={tw`m-3 mt-10`}>
       <Title title={title} />
       <FlatList
         showsHorizontalScrollIndicator={false}

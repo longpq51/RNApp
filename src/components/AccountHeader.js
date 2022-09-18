@@ -21,32 +21,33 @@ const AccountHeader = props => {
   const {userInfo, dispatchSetUserInfo} = useUserInfo();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={tw`pb-20 relative`}>
       <UpdateAvatarModal
         dispatchSetUserInfo={dispatchSetUserInfo}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         userInfo={userInfo}
       />
-      <View style={tw`h-20 bg-${colors.primary}`}></View>
-      <Pressable
-        onPress={() => setModalVisible(true)}
-        style={tw`flex flex-row items-center bg-${colors.primary} p-3`}>
-        <Image
-          source={{uri: userInfo.avatar}}
-          style={tw`w-16 h-16 rounded-full mr-3`}
-        />
+      <View style={tw`h-44 bg-${colors.primary}`}></View>
+      <View style={tw`flex flex-row items-center p-3 absolute bottom-0`}>
+        <Pressable
+          onPress={() => setModalVisible(true)}
+          style={tw`border-8 border-gray-100 mr-3 rounded-full`}>
+          <Image
+            source={{uri: userInfo.avatar}}
+            style={tw`w-32 h-32 rounded-full`}
+          />
+        </Pressable>
         <View>
-          <Text
-            style={tw`text-xl font-bold text-${colors.textColorPrimary} mb-1`}>
-            Phạm Quang Long
-          </Text>
           <View
-            style={tw`bg-${colors.textColorPrimary} flex-row justify-center text-${colors.primary} p-2 rounded-full`}>
+            style={tw`bg-${colors.textColorPrimary} mb-3 w-24 items-center justify-center text-${colors.textColor} p-2 rounded-full`}>
             <Text>Thành viên</Text>
           </View>
+          <Text style={tw`text-xl font-bold text-${colors.primary}`}>
+            longpq@comartek
+          </Text>
         </View>
-      </Pressable>
+      </View>
     </SafeAreaView>
   );
 };

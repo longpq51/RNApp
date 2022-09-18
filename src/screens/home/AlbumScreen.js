@@ -72,6 +72,7 @@ const AlbumScreen = props => {
                 dispatchAudioPlaying(tracksAfter);
                 dispatchIsShowModalPlayer(true);
                 dispatchPlayingAlbum(tracksAfter);
+                dispatchPlayPlaylist({name: '', type: false});
               }}
             />
             <WishlistBtn type="album" item={item} />

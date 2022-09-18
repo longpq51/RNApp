@@ -6822,10 +6822,10 @@
   dependencies:
     "react-native-vector-icons" "^8.1.0"
 
-"react-native-image-slider-box@^2.0.5":
-  "integrity" "sha512-f41RTIncz1XDBfnFBCK1RWp2f5mLnfrwa+ntfcX92VjBhzm+cgjUEnlMDL5hq164PAA6ajfbOq+xOE2PdpF49Q=="
-  "resolved" "https://registry.npmjs.org/react-native-image-slider-box/-/react-native-image-slider-box-2.0.5.tgz"
-  "version" "2.0.5"
+"react-native-image-slider-box@^1.1.20":
+  "integrity" "sha512-RTeSsmIMyukFSFVw7qlw+kQyHDGW1gnd74z8snFY7UMpc6/G60XlTqzBYIj/EVRT9P4GmPL7Y24lduvjgX5kGQ=="
+  "resolved" "https://registry.npmjs.org/react-native-image-slider-box/-/react-native-image-slider-box-1.1.24.tgz"
+  "version" "1.1.24"
   dependencies:
     "react-native-snap-carousel" "latest"
 

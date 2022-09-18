@@ -6,6 +6,7 @@ import {
   FlatList,
   Image,
   Modal,
+  Platform,
   SafeAreaView,
   Text,
   TouchableOpacity,
@@ -77,19 +78,6 @@ const Player = props => {
           : item,
       );
       await TrackPlayer.play();
-      playPlaylist.type &&
-        (await TrackPlayer.getCurrentTrack().then(res =>
-          TrackPlayer.getTrack(res).then(i => {
-            dispatchAudio(i);
-          }),
-        ));
-
-      PlayingAlbum.length !== 0 &&
-        (await TrackPlayer.getCurrentTrack().then(res =>
-          TrackPlayer.getTrack(res).then(i => {
-            dispatchAudio(i);
-          }),
-        ));
     };
     player();
     return () => {
@@ -98,14 +86,42 @@ const Player = props => {
     };
   }, [audioPlaying]);
 
+  useTrackPlayerEvents(
+    [Event.PlaybackTrackChanged, Event.PlaybackQueueEnded],
+    async event => {
+      // To stop the player once it reaches the end of the queue
+
+      if (event.type === Event.PlaybackTrackChanged) {
+        playPlaylist.type &&
+          TrackPlayer.getCurrentTrack().then(res =>
+            TrackPlayer.getTrack(res).then(i => {
+              dispatchAudio(i);
+            }),
+          );
+
+        PlayingAlbum.length !== 0 &&
+          TrackPlayer.getCurrentTrack().then(res =>
+            TrackPlayer.getTrack(res).then(i => {
+              dispatchAudio(i);
+            }),
+          );
+
+        console.log(Event.PlaybackTrackChanged);
+      }
+    },
+  );
+
   return (
     <Modal animationType="slide" transparent={true} visible={isShowModalPlayer}>
-      <SafeAreaView style={tw`flex-1 items-center bg-white`}>
+      <SafeAreaView
+        style={tw`flex-1 items-center bg-white ${
+          Platform.OS === 'android' && 'pt-5'
+        }`}>
         <HeaderPlayer item={item} />
 
         <CDAnimation
           item={item}
-          size="h-1/3 w-2/3"
+          size="h-64 w-64"
           spin={spin}
           start={start}
           stop={stop}
@@ -161,7 +177,6 @@ const Player = props => {
               </Text>
             </TouchableOpacity>
             <PlaylistModal
-              audio={audio}
               i={item}
               isShowPlaylistModal={isShowPlaylistModal}
               setIsShowPlaylistModal={setIsShowPlaylistModal}

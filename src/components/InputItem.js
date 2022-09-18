@@ -26,7 +26,7 @@ import useValidatePassword from '../hooks/validate/useValidatePassword';
 import {showPasswordSelector} from '../store/selectors';
 
 const InputItem = props => {
-  const {placeholder, value, setValue, fn} = props;
+  const {placeholder, value, setValue, fn, setSearchData} = props;
 
   const showPassword = useShowPassword();
   const isShowPassword = useSelector(showPasswordSelector);
@@ -42,7 +42,10 @@ const InputItem = props => {
         {value.length > 0 && placeholder === 'Nhập từ khoá tìm kiếm...' && (
           <TouchableOpacity
             style={tw`absolute z-10 right-3 top-8`}
-            onPress={() => setValue('')}>
+            onPress={() => {
+              setValue('');
+              setSearchData([]);
+            }}>
             <FontAwesomeIcon icon={faCircleXmark} size={20} />
           </TouchableOpacity>
         )}

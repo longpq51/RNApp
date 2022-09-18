@@ -15,10 +15,11 @@ const LogoutModal = props => {
         style={tw`flex-1 justify-center bg-black opacity-75`}
         onPress={() => setModalVisible(false)}></TouchableOpacity>
 
-      <View style={tw`bg-white m-2 rounded-lg p-3 absolute top-1/3`}>
+      <View
+        style={tw`bg-white m-2 rounded-lg p-3 absolute top-1/3 self-center`}>
         <Text style={tw`my-2`}>
           Bạn có chắc muốn đăng xuất tài khoản{' '}
-          <Text style={tw`text-${colors.primary}`}>longpq</Text> không?
+          <Text style={tw`text-${colors.primary}`}>longpq@comartek</Text> không?
         </Text>
 
         <View style={tw`flex-row justify-end`}>

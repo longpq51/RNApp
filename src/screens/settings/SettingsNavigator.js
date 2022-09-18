@@ -19,7 +19,7 @@ const SettingsNavigator = () => {
 
   return (
     <SafeAreaView>
-      <View style={{height: isShowMiniPlayer ? 620 : 700}}>
+      <View style={{height: isShowMiniPlayer ? 668 : 750}}>
         <Stack.Navigator
           initialRouteName="Settings"
           screenOptions={screenOptions}>

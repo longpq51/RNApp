@@ -39,8 +39,6 @@ const PlaylistSpotifyItem = props => {
 
   const {PlayingAlbum, dispatchPlayingAlbum} = usePlayingAlbum();
 
-  console.log(item);
-
   return (
     <TouchableOpacity
       onPress={() => {

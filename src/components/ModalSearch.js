@@ -36,7 +36,7 @@ const ModalSearch = props => {
     dispatchRedux(setModalSearchVisible(data));
   };
 
-  const {searchData, search} = useSearchSpotify();
+  const {searchData, search, setSearchData} = useSearchSpotify();
 
   return (
     <Modal
@@ -51,6 +51,7 @@ const ModalSearch = props => {
         <View style={tw`flex flex-row items-center mx-2 mb-2`}>
           <View style={tw`flex-1`}>
             <InputItem
+              setSearchData={setSearchData}
               fn={search}
               placeholder="Nhập từ khoá tìm kiếm..."
               value={value}

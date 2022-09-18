@@ -77,7 +77,7 @@ const SettingsScreen = props => {
           onPress={() => Linking.openURL('https://github.com/longpq51')}>
           <Text
             style={tw`w-full text-${colors.primary} text-center font-bold p-3`}>
-            Design by longpq@comartek
+            longpq@comartek
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

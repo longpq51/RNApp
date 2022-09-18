@@ -23,6 +23,7 @@ import usePlayPlaylist from '../../hooks/playlist/usePlayPlaylist';
 import useGetAudioList from '../../hooks/playlist/useGetAudioList';
 import useSetupPlayer from '../../hooks/useSetupPlayer';
 import TrackPlayer from 'react-native-track-player';
+import Toast from 'react-native-toast-message';
 
 const AudioListScreen = props => {
   const route = useRoute();
@@ -35,7 +36,6 @@ const AudioListScreen = props => {
   } = usePlayPlaylist();
 
   const audioList = useGetAudioList(name);
-  console.log(audioList);
 
   return (
     <SafeAreaView>
@@ -47,9 +47,17 @@ const AudioListScreen = props => {
           <BtnUI
             text="Phát nhạc"
             onPress={() => {
-              dispatchAudioPlaying(audioList);
-              dispatchIsShowModalPlayer(true);
-              dispatchPlayPlaylist({name: name, type: true});
+              if (audioList.length === 0) {
+                Toast.show({
+                  type: 'error',
+                  text1: 'Chưa có bài hát nào trong playlist',
+                  text2: 'Hãy thêm bài hát vào playlist nhé! 👋',
+                });
+              } else {
+                dispatchAudioPlaying(audioList);
+                dispatchIsShowModalPlayer(true);
+                dispatchPlayPlaylist({name: name, type: true});
+              }
             }}
           />
           <AddAudioBtn name={name} />

@@ -14,7 +14,7 @@ const PlaylistCard = props => {
       onPress={() => navigation.navigate('AudioList', {name: name})}>
       <Text style={tw`font-bold text-${colors.primary} text-lg`}>{name}</Text>
       <Text style={tw`text-xs`}>
-        Tạo bởi <Text style={tw`text-${colors.primary}`}>longpq</Text>
+        Tạo bởi <Text style={tw`text-${colors.primary}`}>longpq@comartek</Text>
       </Text>
     </TouchableOpacity>
   );
